@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DevelopmentRepairEngine.data.script;
+using DevelopmentRepairEngine.pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,8 @@ namespace DevelopmentRepairEngine
         public MainWindow()
         {
             InitializeComponent();
+            ControlHelper.frmobj = FrmMain;
+            //OdbConnectionHelper.Connect
         }
     }
 }
