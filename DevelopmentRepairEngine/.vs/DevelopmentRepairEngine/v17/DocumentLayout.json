@@ -1,0 +1,57 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\hlebu\\YandexDisk\\\u0411\u0443\u044F\u043D\u043E\u0432 \u041D\u0438\u043A\u0438\u0442\u0430 \u0420\u043E\u0434\u0438\u043E\u043D\u043E\u0432\u0438\u0447\\\u0423\u0447\u0435\u0431\u0430\\\u0417\u0430\u0431\u0413\u041A\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\11.11.2024 - 20.12.2024\\Pr1\\AppRepairEngine\\DevelopmentRepairEngine\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D0DC0046-7F63-4AF4-99AF-AB39BDBDDA7C}|DevelopmentRepairEngine.csproj|c:\\users\\hlebu\\yandexdisk\\\u0431\u0443\u044F\u043D\u043E\u0432 \u043D\u0438\u043A\u0438\u0442\u0430 \u0440\u043E\u0434\u0438\u043E\u043D\u043E\u0432\u0438\u0447\\\u0443\u0447\u0435\u0431\u0430\\\u0437\u0430\u0431\u0433\u043A\\\u0443\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\11.11.2024 - 20.12.2024\\pr1\\apprepairengine\\developmentrepairengine\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{D0DC0046-7F63-4AF4-99AF-AB39BDBDDA7C}|DevelopmentRepairEngine.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D0DC0046-7F63-4AF4-99AF-AB39BDBDDA7C}|DevelopmentRepairEngine.csproj|c:\\users\\hlebu\\yandexdisk\\\u0431\u0443\u044F\u043D\u043E\u0432 \u043D\u0438\u043A\u0438\u0442\u0430 \u0440\u043E\u0434\u0438\u043E\u043D\u043E\u0432\u0438\u0447\\\u0443\u0447\u0435\u0431\u0430\\\u0437\u0430\u0431\u0433\u043A\\\u0443\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\11.11.2024 - 20.12.2024\\pr1\\apprepairengine\\developmentrepairengine\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D0DC0046-7F63-4AF4-99AF-AB39BDBDDA7C}|DevelopmentRepairEngine.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\hlebu\\YandexDisk\\\u0411\u0443\u044F\u043D\u043E\u0432 \u041D\u0438\u043A\u0438\u0442\u0430 \u0420\u043E\u0434\u0438\u043E\u043D\u043E\u0432\u0438\u0447\\\u0423\u0447\u0435\u0431\u0430\\\u0417\u0430\u0431\u0413\u041A\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\11.11.2024 - 20.12.2024\\Pr1\\AppRepairEngine\\DevelopmentRepairEngine\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "MainWindow.xaml",
+              "ToolTip": "C:\\Users\\hlebu\\YandexDisk\\\u0411\u0443\u044F\u043D\u043E\u0432 \u041D\u0438\u043A\u0438\u0442\u0430 \u0420\u043E\u0434\u0438\u043E\u043D\u043E\u0432\u0438\u0447\\\u0423\u0447\u0435\u0431\u0430\\\u0417\u0430\u0431\u0413\u041A\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\11.11.2024 - 20.12.2024\\Pr1\\AppRepairEngine\\DevelopmentRepairEngine\\MainWindow.xaml",
+              "RelativeToolTip": "MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-11-11T18:06:43.181Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\hlebu\\YandexDisk\\\u0411\u0443\u044F\u043D\u043E\u0432 \u041D\u0438\u043A\u0438\u0442\u0430 \u0420\u043E\u0434\u0438\u043E\u043D\u043E\u0432\u0438\u0447\\\u0423\u0447\u0435\u0431\u0430\\\u0417\u0430\u0431\u0413\u041A\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\11.11.2024 - 20.12.2024\\Pr1\\AppRepairEngine\\DevelopmentRepairEngine\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\hlebu\\YandexDisk\\\u0411\u0443\u044F\u043D\u043E\u0432 \u041D\u0438\u043A\u0438\u0442\u0430 \u0420\u043E\u0434\u0438\u043E\u043D\u043E\u0432\u0438\u0447\\\u0423\u0447\u0435\u0431\u0430\\\u0417\u0430\u0431\u0413\u041A\\\u0423\u0447\u0435\u0431\u043D\u0430\u044F \u043F\u0440\u0430\u043A\u0442\u0438\u043A\u0430\\11.11.2024 - 20.12.2024\\Pr1\\AppRepairEngine\\DevelopmentRepairEngine\\MainWindow.xaml.cs",
+              "RelativeToolTip": "MainWindow.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-11T18:06:42.472Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
