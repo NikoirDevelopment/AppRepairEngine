@@ -50,7 +50,7 @@ CREATE TABLE [Request] (
 	, [StartDate] DATE NOT NULL
 	, [HomeTechID] INT NOT NULL
 		FOREIGN KEY REFERENCES [HomeTech](HomeTechID)
-	, [TechFactory] INT NOT NULL
+	, [TechFactoryID] INT NOT NULL
 		FOREIGN KEY REFERENCES [TechFactory](TechFactoryID)
 	, [ModelTechFactoryID] INT NOT NULL
 		FOREIGN KEY REFERENCES [ModelTechFactory](ModelTechFactoryID)

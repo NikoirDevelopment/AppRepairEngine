@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4b52dd4b43e44be3b9578fd996a2e593" Name="Diagram1">
+        <EntityTypeShape EntityType="OdbRepairEngineModel.ActionLog" Width="1.5" PointX="5.25" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OdbRepairEngineModel.ActionStatus" Width="1.5" PointX="3" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OdbRepairEngineModel.Comment" Width="1.5" PointX="7.5" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="OdbRepairEngineModel.HomeTech" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="OdbRepairEngineModel.ModelTechFactory" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="OdbRepairEngineModel.NewMessage" Width="1.5" PointX="10.5" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OdbRepairEngineModel.Request" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OdbRepairEngineModel.RequestStatus" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OdbRepairEngineModel.Role" Width="1.5" PointX="0.75" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OdbRepairEngineModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OdbRepairEngineModel.TechColor" Width="1.5" PointX="3" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="OdbRepairEngineModel.TechFactory" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="OdbRepairEngineModel.User" Width="1.5" PointX="3" PointY="13.5" IsExpanded="true" />
+        <AssociationConnector Association="OdbRepairEngineModel.FK__ActionLog__Actio__60A75C0F" ManuallyRouted="false" />
+        <AssociationConnector Association="OdbRepairEngineModel.FK__ActionLog__UserI__5FB337D6" ManuallyRouted="false" />
+        <AssociationConnector Association="OdbRepairEngineModel.FK__Comment__MasterI__70DDC3D8" ManuallyRouted="false" />
+        <AssociationConnector Association="OdbRepairEngineModel.FK__Comment__Request__71D1E811" ManuallyRouted="false" />
+        <AssociationConnector Association="OdbRepairEngineModel.FK__Request__HomeTec__68487DD7" ManuallyRouted="false" />
+        <AssociationConnector Association="OdbRepairEngineModel.FK__ModelTech__TechF__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="OdbRepairEngineModel.FK__Request__ModelTe__6A30C649" ManuallyRouted="false" />
+        <AssociationConnector Association="OdbRepairEngineModel.FK__NewMessag__Reque__74AE54BC" ManuallyRouted="false" />
+        <AssociationConnector Association="OdbRepairEngineModel.FK__NewMessag__Reque__75A278F5" ManuallyRouted="false" />
+        <AssociationConnector Association="OdbRepairEngineModel.FK__NewMessag__UserI__76969D2E" ManuallyRouted="false" />
+        <AssociationConnector Association="OdbRepairEngineModel.FK__Request__ClientI__6E01572D" ManuallyRouted="false" />
+        <AssociationConnector Association="OdbRepairEngineModel.FK__Request__MasterI__6D0D32F4" ManuallyRouted="false" />
+        <AssociationConnector Association="OdbRepairEngineModel.FK__Request__Request__6C190EBB" ManuallyRouted="false" />
+        <AssociationConnector Association="OdbRepairEngineModel.FK__Request__TechCol__6B24EA82" ManuallyRouted="false" />
+        <AssociationConnector Association="OdbRepairEngineModel.FK__Request__TechFac__693CA210" ManuallyRouted="false" />
+        <AssociationConnector Association="OdbRepairEngineModel.FK__User__RoleID__398D8EEE" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

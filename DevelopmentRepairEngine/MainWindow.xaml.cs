@@ -1,5 +1,7 @@
-﻿using DevelopmentRepairEngine.data.script;
+﻿using DevelopmentRepairEngine.data;
+using DevelopmentRepairEngine.data.script;
 using DevelopmentRepairEngine.pages;
+using DevelopmentRepairEngine.pages.MessageOperator;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,8 +27,18 @@ namespace DevelopmentRepairEngine
         public MainWindow()
         {
             InitializeComponent();
+            LoadData();
+
+            WindowMessageOperator windowMessageOperator = new WindowMessageOperator();
+            windowMessageOperator.Show();
+        }
+
+        private void LoadData()
+        {
             ControlHelper.frmobj = FrmMain;
-            //OdbConnectionHelper.Connect
+            ControlHelper.frmobj.Navigate(new PagesAuthorization());
+
+            OdbConnectionHelper.Connect.OdbConnect = new OdbRepairEngineEntities();
         }
     }
 }

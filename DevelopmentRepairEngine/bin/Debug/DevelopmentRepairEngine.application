@@ -7,14 +7,14 @@
     <framework targetVersion="4.8.1" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="DevelopmentRepairEngine.exe.manifest" size="5040">
+    <dependentAssembly dependencyType="install" codebase="DevelopmentRepairEngine.exe.manifest" size="7924">
       <assemblyIdentity name="DevelopmentRepairEngine.exe" version="1.0.0.0" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>mfBVEX0SLsAZKh5BHut79brLJkzlPgcXhcNQ+UWUg2c=</dsig:DigestValue>
+        <dsig:DigestValue>JcfimBkQ8XQmeI1ybW0ho7Y7MPaFIa1psR2EB5+kGgA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
