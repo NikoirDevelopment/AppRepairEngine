@@ -11,9 +11,6 @@ namespace DevelopmentRepairEngine.data.script
     /// </summary>
      class OdbConnectionHelper
     {
-        internal class Connect
-        {
-            public static OdbRepairEngineEntities OdbConnect;
-        }
+        public static OdbRepairEngineEntities OdbConnect;
     }
 }

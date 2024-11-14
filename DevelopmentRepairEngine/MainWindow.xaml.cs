@@ -1,9 +1,10 @@
 ﻿using DevelopmentRepairEngine.data;
 using DevelopmentRepairEngine.data.script;
 using DevelopmentRepairEngine.pages;
-using DevelopmentRepairEngine.pages.MessageOperator;
+using DevelopmentRepairEngine.pages.MainWindowApp;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,8 +30,8 @@ namespace DevelopmentRepairEngine
             InitializeComponent();
             LoadData();
 
-            WindowMessageOperator windowMessageOperator = new WindowMessageOperator();
-            windowMessageOperator.Show();
+            windowMainWindowApp windowMainWindowApp = new windowMainWindowApp();
+            windowMainWindowApp.Show();
         }
 
         private void LoadData()
@@ -38,7 +39,7 @@ namespace DevelopmentRepairEngine
             ControlHelper.frmobj = FrmMain;
             ControlHelper.frmobj.Navigate(new PagesAuthorization());
 
-            OdbConnectionHelper.Connect.OdbConnect = new OdbRepairEngineEntities();
+            OdbConnectionHelper.OdbConnect = new OdbRepairEngineEntities();
         }
     }
 }
