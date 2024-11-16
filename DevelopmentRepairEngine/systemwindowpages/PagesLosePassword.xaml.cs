@@ -24,58 +24,5 @@ namespace DevelopmentRepairEngine.pages
         {
             InitializeComponent();
         }
-
-        private void BtnAuth_Click(object sender, RoutedEventArgs e)
-        {
-            ControlHelper.frmobj.Navigate(new PagesAuthorization());
-        }
-
-        private void BtnReg_Click(object sender, RoutedEventArgs e)
-        {
-            ControlHelper.frmobj.Navigate(new PagesRegistration());
-        }
-
-        private void BtnCheckLogin_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                if (TxbUser.Text != null)
-                {
-
-
-                    if (true)
-                    {
-
-                        LoadData();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Пользователь: " + TxbUser.Text + " не найден!",
-                            "Уведомление",
-                            MessageBoxButton.OK,
-                            MessageBoxImage.Information);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Поле для ввода логина пустое! Введите логин для поиска в системе",
-                        "Уведомление",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Произошла критеская ошибка! " + ex,
-                    "Уведомление",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-            }
-        }
-
-        private static void LoadData()
-        {
-
-        }
     }
 }

@@ -4,9 +4,10 @@
              xmlns:local="clr-namespace:DevelopmentRepairEngine"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <!-- windowMainWindowApp_Начало -->
         <Style x:Key="BorderMain" TargetType="Border">
             <Setter Property="Height" Value="35"></Setter>
-            <Setter Property="Width" Value="205"></Setter>
+            <Setter Property="Width" Value="204"></Setter>
             <Setter Property="Background" Value="LightYellow"></Setter>
             <Setter Property="BorderThickness" Value="1 1 1 1"></Setter>
         </Style>
@@ -14,6 +15,7 @@
         <Style x:Key="BtnMain" TargetType="Button">
             <Setter Property="Height" Value="35"></Setter>
             <Setter Property="Width" Value="195"></Setter>
+            <Setter Property="Margin" Value="0 5 0 5"></Setter>
             <Setter Property="Background" Value="LightYellow"></Setter>
             <Setter Property="BorderThickness" Value="1 1 1 1"></Setter>
             <Setter Property="Cursor" Value="Hand"></Setter>
@@ -43,5 +45,10 @@
             <Setter Property="FontSize" Value="18px"></Setter>
             <Setter Property="FontFamily" Value="Arial"></Setter>
         </Style>
+        <!-- windowMainWindowApp_Конец -->
+
+        <!-- windowMainWindowApp_Начало -->
+
+        <!-- windowMainWindowApp_Конец -->
     </Application.Resources>
 </Application>

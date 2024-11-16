@@ -17,6 +17,16 @@
     <Property Name="ActionStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Type" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
+  <EntityType Name="Client">
+    <Key>
+      <PropertyRef Name="ClientID" />
+    </Key>
+    <Property Name="ClientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="RoleID" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="Comment">
     <Key>
       <PropertyRef Name="CommentID" />
@@ -25,6 +35,16 @@
     <Property Name="Message" Type="varchar(max)" Nullable="false" />
     <Property Name="MasterID" Type="int" Nullable="false" />
     <Property Name="RequestID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+    </Key>
+    <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserID" Type="int" />
+    <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="RoleID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="HomeTech">
     <Key>
@@ -59,13 +79,13 @@
     <Property Name="RequestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="StartDate" Type="date" Nullable="false" />
     <Property Name="HomeTechID" Type="int" Nullable="false" />
-    <Property Name="TechFactory" Type="int" Nullable="false" />
+    <Property Name="TechFactoryID" Type="int" Nullable="false" />
     <Property Name="ModelTechFactoryID" Type="int" Nullable="false" />
     <Property Name="TechColorID" Type="int" Nullable="false" />
     <Property Name="ProblemeDescryption" Type="varchar(max)" Nullable="false" />
     <Property Name="RequestStatusID" Type="int" Nullable="false" />
     <Property Name="CompletionDate" Type="date" />
-    <Property Name="RepairParts" Type="varchar(max)" Nullable="false" />
+    <Property Name="RepairParts" Type="varchar(max)" />
     <Property Name="MasterID" Type="int" />
     <Property Name="ClientID" Type="int" Nullable="false" />
   </EntityType>
@@ -116,11 +136,8 @@
     <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="MiddleName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Phone" Type="float" Nullable="false" />
-    <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="RoleID" Type="int" Nullable="false" />
   </EntityType>
-  <Association Name="FK__ActionLog__Actio__60A75C0F">
+  <Association Name="FK__ActionLog__Actio__5CD6CB2B">
     <End Role="ActionStatus" Type="Self.ActionStatus" Multiplicity="1" />
     <End Role="ActionLog" Type="Self.ActionLog" Multiplicity="*" />
     <ReferentialConstraint>
@@ -132,7 +149,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__ActionLog__UserI__5FB337D6">
+  <Association Name="FK__ActionLog__UserI__5BE2A6F2">
     <End Role="User" Type="Self.User" Multiplicity="1" />
     <End Role="ActionLog" Type="Self.ActionLog" Multiplicity="*" />
     <ReferentialConstraint>
@@ -144,7 +161,31 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Comment__MasterI__70DDC3D8">
+  <Association Name="FK__Client__RoleID__3C69FB99">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="Client" Type="Self.Client" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="Client">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Client__UserID__3B75D760">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Client" Type="Self.Client" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Client">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Comment__MasterI__5629CD9C">
     <End Role="User" Type="Self.User" Multiplicity="1" />
     <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
     <ReferentialConstraint>
@@ -156,7 +197,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Comment__Request__71D1E811">
+  <Association Name="FK__Comment__Request__571DF1D5">
     <End Role="Request" Type="Self.Request" Multiplicity="1" />
     <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
     <ReferentialConstraint>
@@ -168,7 +209,31 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__ModelTech__TechF__403A8C7D">
+  <Association Name="FK__Employee__RoleID__403A8C7D">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="RoleID" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Employee__UserID__3F466844">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ModelTech__TechF__46E78A0C">
     <End Role="TechFactory" Type="Self.TechFactory" Multiplicity="1" />
     <End Role="ModelTechFactory" Type="Self.ModelTechFactory" Multiplicity="*" />
     <ReferentialConstraint>
@@ -180,7 +245,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__NewMessag__Reque__74AE54BC">
+  <Association Name="FK__NewMessag__Reque__5FB337D6">
     <End Role="Request" Type="Self.Request" Multiplicity="1" />
     <End Role="NewMessage" Type="Self.NewMessage" Multiplicity="*" />
     <ReferentialConstraint>
@@ -192,7 +257,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__NewMessag__Reque__75A278F5">
+  <Association Name="FK__NewMessag__Reque__60A75C0F">
     <End Role="RequestStatus" Type="Self.RequestStatus" Multiplicity="1" />
     <End Role="NewMessage" Type="Self.NewMessage" Multiplicity="*" />
     <ReferentialConstraint>
@@ -204,7 +269,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__NewMessag__UserI__76969D2E">
+  <Association Name="FK__NewMessag__UserI__619B8048">
     <End Role="User" Type="Self.User" Multiplicity="1" />
     <End Role="NewMessage" Type="Self.NewMessage" Multiplicity="*" />
     <ReferentialConstraint>
@@ -216,19 +281,19 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Request__ClientI__6E01572D">
-    <End Role="User" Type="Self.User" Multiplicity="1" />
+  <Association Name="FK__Request__ClientI__534D60F1">
+    <End Role="Client" Type="Self.Client" Multiplicity="1" />
     <End Role="Request" Type="Self.Request" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="UserID" />
+      <Principal Role="Client">
+        <PropertyRef Name="ClientID" />
       </Principal>
       <Dependent Role="Request">
         <PropertyRef Name="ClientID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Request__HomeTec__68487DD7">
+  <Association Name="FK__Request__HomeTec__4D94879B">
     <End Role="HomeTech" Type="Self.HomeTech" Multiplicity="1" />
     <End Role="Request" Type="Self.Request" Multiplicity="*" />
     <ReferentialConstraint>
@@ -240,19 +305,19 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Request__MasterI__6D0D32F4">
-    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+  <Association Name="FK__Request__MasterI__52593CB8">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
     <End Role="Request" Type="Self.Request" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="UserID" />
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
       </Principal>
       <Dependent Role="Request">
         <PropertyRef Name="MasterID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Request__ModelTe__6A30C649">
+  <Association Name="FK__Request__ModelTe__4F7CD00D">
     <End Role="ModelTechFactory" Type="Self.ModelTechFactory" Multiplicity="1" />
     <End Role="Request" Type="Self.Request" Multiplicity="*" />
     <ReferentialConstraint>
@@ -264,7 +329,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Request__Request__6C190EBB">
+  <Association Name="FK__Request__Request__5165187F">
     <End Role="RequestStatus" Type="Self.RequestStatus" Multiplicity="1" />
     <End Role="Request" Type="Self.Request" Multiplicity="*" />
     <ReferentialConstraint>
@@ -276,7 +341,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Request__TechCol__6B24EA82">
+  <Association Name="FK__Request__TechCol__5070F446">
     <End Role="TechColor" Type="Self.TechColor" Multiplicity="1" />
     <End Role="Request" Type="Self.Request" Multiplicity="*" />
     <ReferentialConstraint>
@@ -288,7 +353,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Request__TechFac__693CA210">
+  <Association Name="FK__Request__TechFac__4E88ABD4">
     <End Role="TechFactory" Type="Self.TechFactory" Multiplicity="1" />
     <End Role="Request" Type="Self.Request" Multiplicity="*" />
     <ReferentialConstraint>
@@ -296,26 +361,16 @@
         <PropertyRef Name="TechFactoryID" />
       </Principal>
       <Dependent Role="Request">
-        <PropertyRef Name="TechFactory" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__User__RoleID__398D8EEE">
-    <End Role="Role" Type="Self.Role" Multiplicity="1" />
-    <End Role="User" Type="Self.User" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Role">
-        <PropertyRef Name="RoleID" />
-      </Principal>
-      <Dependent Role="User">
-        <PropertyRef Name="RoleID" />
+        <PropertyRef Name="TechFactoryID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="Хранилище OdbRepairEngineModelContainer">
     <EntitySet Name="ActionLog" EntityType="Self.ActionLog" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ActionStatus" EntityType="Self.ActionStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HomeTech" EntityType="Self.HomeTech" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ModelTechFactory" EntityType="Self.ModelTechFactory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NewMessage" EntityType="Self.NewMessage" Schema="dbo" store:Type="Tables" />
@@ -326,69 +381,81 @@
     <EntitySet Name="TechColor" EntityType="Self.TechColor" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TechFactory" EntityType="Self.TechFactory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__ActionLog__Actio__60A75C0F" Association="Self.FK__ActionLog__Actio__60A75C0F">
+    <AssociationSet Name="FK__ActionLog__Actio__5CD6CB2B" Association="Self.FK__ActionLog__Actio__5CD6CB2B">
       <End Role="ActionStatus" EntitySet="ActionStatus" />
       <End Role="ActionLog" EntitySet="ActionLog" />
     </AssociationSet>
-    <AssociationSet Name="FK__ActionLog__UserI__5FB337D6" Association="Self.FK__ActionLog__UserI__5FB337D6">
+    <AssociationSet Name="FK__ActionLog__UserI__5BE2A6F2" Association="Self.FK__ActionLog__UserI__5BE2A6F2">
       <End Role="User" EntitySet="User" />
       <End Role="ActionLog" EntitySet="ActionLog" />
     </AssociationSet>
-    <AssociationSet Name="FK__Comment__MasterI__70DDC3D8" Association="Self.FK__Comment__MasterI__70DDC3D8">
+    <AssociationSet Name="FK__Client__RoleID__3C69FB99" Association="Self.FK__Client__RoleID__3C69FB99">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="Client" EntitySet="Client" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Client__UserID__3B75D760" Association="Self.FK__Client__UserID__3B75D760">
+      <End Role="User" EntitySet="User" />
+      <End Role="Client" EntitySet="Client" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Comment__MasterI__5629CD9C" Association="Self.FK__Comment__MasterI__5629CD9C">
       <End Role="User" EntitySet="User" />
       <End Role="Comment" EntitySet="Comment" />
     </AssociationSet>
-    <AssociationSet Name="FK__Comment__Request__71D1E811" Association="Self.FK__Comment__Request__71D1E811">
+    <AssociationSet Name="FK__Comment__Request__571DF1D5" Association="Self.FK__Comment__Request__571DF1D5">
       <End Role="Request" EntitySet="Request" />
       <End Role="Comment" EntitySet="Comment" />
     </AssociationSet>
-    <AssociationSet Name="FK__ModelTech__TechF__403A8C7D" Association="Self.FK__ModelTech__TechF__403A8C7D">
+    <AssociationSet Name="FK__Employee__RoleID__403A8C7D" Association="Self.FK__Employee__RoleID__403A8C7D">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Employee__UserID__3F466844" Association="Self.FK__Employee__UserID__3F466844">
+      <End Role="User" EntitySet="User" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ModelTech__TechF__46E78A0C" Association="Self.FK__ModelTech__TechF__46E78A0C">
       <End Role="TechFactory" EntitySet="TechFactory" />
       <End Role="ModelTechFactory" EntitySet="ModelTechFactory" />
     </AssociationSet>
-    <AssociationSet Name="FK__NewMessag__Reque__74AE54BC" Association="Self.FK__NewMessag__Reque__74AE54BC">
+    <AssociationSet Name="FK__NewMessag__Reque__5FB337D6" Association="Self.FK__NewMessag__Reque__5FB337D6">
       <End Role="Request" EntitySet="Request" />
       <End Role="NewMessage" EntitySet="NewMessage" />
     </AssociationSet>
-    <AssociationSet Name="FK__NewMessag__Reque__75A278F5" Association="Self.FK__NewMessag__Reque__75A278F5">
+    <AssociationSet Name="FK__NewMessag__Reque__60A75C0F" Association="Self.FK__NewMessag__Reque__60A75C0F">
       <End Role="RequestStatus" EntitySet="RequestStatus" />
       <End Role="NewMessage" EntitySet="NewMessage" />
     </AssociationSet>
-    <AssociationSet Name="FK__NewMessag__UserI__76969D2E" Association="Self.FK__NewMessag__UserI__76969D2E">
+    <AssociationSet Name="FK__NewMessag__UserI__619B8048" Association="Self.FK__NewMessag__UserI__619B8048">
       <End Role="User" EntitySet="User" />
       <End Role="NewMessage" EntitySet="NewMessage" />
     </AssociationSet>
-    <AssociationSet Name="FK__Request__ClientI__6E01572D" Association="Self.FK__Request__ClientI__6E01572D">
-      <End Role="User" EntitySet="User" />
+    <AssociationSet Name="FK__Request__ClientI__534D60F1" Association="Self.FK__Request__ClientI__534D60F1">
+      <End Role="Client" EntitySet="Client" />
       <End Role="Request" EntitySet="Request" />
     </AssociationSet>
-    <AssociationSet Name="FK__Request__HomeTec__68487DD7" Association="Self.FK__Request__HomeTec__68487DD7">
+    <AssociationSet Name="FK__Request__HomeTec__4D94879B" Association="Self.FK__Request__HomeTec__4D94879B">
       <End Role="HomeTech" EntitySet="HomeTech" />
       <End Role="Request" EntitySet="Request" />
     </AssociationSet>
-    <AssociationSet Name="FK__Request__MasterI__6D0D32F4" Association="Self.FK__Request__MasterI__6D0D32F4">
-      <End Role="User" EntitySet="User" />
+    <AssociationSet Name="FK__Request__MasterI__52593CB8" Association="Self.FK__Request__MasterI__52593CB8">
+      <End Role="Employee" EntitySet="Employee" />
       <End Role="Request" EntitySet="Request" />
     </AssociationSet>
-    <AssociationSet Name="FK__Request__ModelTe__6A30C649" Association="Self.FK__Request__ModelTe__6A30C649">
+    <AssociationSet Name="FK__Request__ModelTe__4F7CD00D" Association="Self.FK__Request__ModelTe__4F7CD00D">
       <End Role="ModelTechFactory" EntitySet="ModelTechFactory" />
       <End Role="Request" EntitySet="Request" />
     </AssociationSet>
-    <AssociationSet Name="FK__Request__Request__6C190EBB" Association="Self.FK__Request__Request__6C190EBB">
+    <AssociationSet Name="FK__Request__Request__5165187F" Association="Self.FK__Request__Request__5165187F">
       <End Role="RequestStatus" EntitySet="RequestStatus" />
       <End Role="Request" EntitySet="Request" />
     </AssociationSet>
-    <AssociationSet Name="FK__Request__TechCol__6B24EA82" Association="Self.FK__Request__TechCol__6B24EA82">
+    <AssociationSet Name="FK__Request__TechCol__5070F446" Association="Self.FK__Request__TechCol__5070F446">
       <End Role="TechColor" EntitySet="TechColor" />
       <End Role="Request" EntitySet="Request" />
     </AssociationSet>
-    <AssociationSet Name="FK__Request__TechFac__693CA210" Association="Self.FK__Request__TechFac__693CA210">
+    <AssociationSet Name="FK__Request__TechFac__4E88ABD4" Association="Self.FK__Request__TechFac__4E88ABD4">
       <End Role="TechFactory" EntitySet="TechFactory" />
       <End Role="Request" EntitySet="Request" />
-    </AssociationSet>
-    <AssociationSet Name="FK__User__RoleID__398D8EEE" Association="Self.FK__User__RoleID__398D8EEE">
-      <End Role="Role" EntitySet="Role" />
-      <End Role="User" EntitySet="User" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

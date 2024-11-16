@@ -5,15 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DevelopmentRepairEngine.pages.MainWindowApp"
         mc:Ignorable="d"
-        Title="windowMainWindowApp" Height="450" Width="850"
+        Title="БытСеривис | Домашний экран (Выберите раздел из панели навигации)"
+        Height="450" Width="850"
         WindowStartupLocation="CenterScreen"
         WindowStyle="SingleBorderWindow"
         ResizeMode="NoResize">
     <Border Background="Gray">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="18*"/>
-                <ColumnDefinition Width="57*"/>
+                <ColumnDefinition Width="6*"/>
+                <ColumnDefinition Width="19*"/>
             </Grid.ColumnDefinitions>
 
             <Grid
@@ -21,7 +22,7 @@
                 Background="DimGray">
                 <StackPanel
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
+                    VerticalAlignment="Top"
                     Orientation="Vertical">
                     <Border
                         Style="{StaticResource BorderMain}">
@@ -43,7 +44,8 @@
                     </Border>
 
                     <Border
-                        Margin="0 5 0 5"
+                        Grid.Column="0"
+                        Margin="0 1 0 0"
                         Height="2"
                         Width="204"
                         Background="LightYellow">
@@ -52,7 +54,8 @@
                     <Button
                         x:Name="Btn_Users"
                         Style="{DynamicResource BtnMain}"
-                        Click="Btn_Users_Click">
+                        Click="Btn_Users_Click"
+                        >
                         <StackPanel
                             Style="{StaticResource BtnMain_StackPanel}">
                             <Image
@@ -69,9 +72,8 @@
 
                     <Button
                         x:Name="Btn_CreateOrder"
-                        Margin="0 5 0 0"
                         Style="{DynamicResource BtnMain}"
-                        Click="Btn_Users_Click">
+                        Click="Btn_CreateOrder_Click">
                         <StackPanel
                             Style="{StaticResource BtnMain_StackPanel}">
                             <Image
@@ -88,7 +90,6 @@
 
                     <Button
                         x:Name="Btn_CheckOrder"
-                        Margin="0 5 0 0"
                         Style="{DynamicResource BtnMain}"
                         Click="Btn_CheckOrder_Click">
                         <StackPanel
@@ -111,7 +112,6 @@
 
                     <Button
                         x:Name="Btn_Statistics"
-                        Margin="0 5 0 0"
                         Style="{DynamicResource BtnMain}"
                         Click="Btn_Statistics_Click">
                         <StackPanel
@@ -133,9 +133,8 @@
 
                     <Button
                         x:Name="Btn_Message"
-                        Margin="0 5 0 0"
                         Style="{DynamicResource BtnMain}"
-                        Click="Btn_Statistics_Click">
+                        Click="Btn_Message_Click" Cursor="Hand">
                         <StackPanel
                             Style="{StaticResource BtnMain_StackPanel}">
                             <Image
@@ -161,6 +160,43 @@
                         FontFamily="Arial"
                         FontSize="12px">
                     </Label>
+                </StackPanel>
+
+                <StackPanel
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Orientation="Vertical">
+                    <Border
+                        Grid.Column="0"
+                        Margin="0 0 0 1"
+                        Height="2"
+                        Width="204"
+                        Background="LightYellow">
+                    </Border>
+
+                    <Button
+                        x:Name="Btn_Exit"
+                        Style="{DynamicResource BtnMain}"
+                        Height="35"
+                        Width="204"
+                        Margin="0 0 0 0"
+                        Click="Btn_Exit_Click">
+                        <StackPanel
+                            Style="{StaticResource BtnMain_StackPanel}">
+                            <Image
+                                Style="{StaticResource BtnMain_StackPanel_Image}"
+                                Source="/res/image/Exit.png"
+                                Height="28"
+                                Width="28">
+                            </Image>
+
+                            <TextBlock
+                                Style="{StaticResource BtnMain_StackPanel_Image_TextBlock}"
+                                Margin="3 0 0 0"
+                                Text="Выйти из системы">
+                            </TextBlock>
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
             </Grid>
 

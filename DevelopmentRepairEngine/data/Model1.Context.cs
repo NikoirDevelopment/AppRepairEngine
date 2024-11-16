@@ -27,7 +27,9 @@ namespace DevelopmentRepairEngine.data
     
         public virtual DbSet<ActionLog> ActionLog { get; set; }
         public virtual DbSet<ActionStatus> ActionStatus { get; set; }
+        public virtual DbSet<Client> Client { get; set; }
         public virtual DbSet<Comment> Comment { get; set; }
+        public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<HomeTech> HomeTech { get; set; }
         public virtual DbSet<ModelTechFactory> ModelTechFactory { get; set; }
         public virtual DbSet<NewMessage> NewMessage { get; set; }

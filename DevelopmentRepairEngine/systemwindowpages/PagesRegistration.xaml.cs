@@ -2,6 +2,7 @@
 using DevelopmentRepairEngine.data.script;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -36,6 +37,7 @@ namespace DevelopmentRepairEngine.pages
             TxbPassword2.IsEnabled = false;
         }
 
+        public static int userID { get; set; }
         public static string login {  get; set; }
         public static string name { get; set; }
         public static string surname { get; set; }
@@ -127,7 +129,7 @@ namespace DevelopmentRepairEngine.pages
             {
                 if (password1 == password2)
                 {
-                    var sqlConn = OdbConnectionHelper.OdbConnect.User.FirstOrDefault(
+                    var sqlConn = OdbConnectionHelper.OdbConnect.Client.FirstOrDefault(
                     x => String.Compare(x.Login, login, StringComparison.InvariantCulture) == 0);
 
                     if (sqlConn == null)
@@ -172,12 +174,24 @@ namespace DevelopmentRepairEngine.pages
                     Surname = surname,
                     MiddleName = middlename,
                     Phone = phone,
+                };
+                OdbConnectionHelper.OdbConnect.User.Add(user);
+                OdbConnectionHelper.OdbConnect.SaveChanges();
+
+                var sqlConn1 = OdbConnectionHelper.OdbConnect.User.FirstOrDefault(
+                            x => x.Name == name && x.Surname == surname && x.MiddleName == middlename && x.Phone == phone);
+
+                Client client = new Client()
+                {
+                    UserID = sqlConn1.UserID,
                     Login = login,
                     Password = password2,
                     RoleID = 4
                 };
-                OdbConnectionHelper.OdbConnect.User.Add(user);
+                OdbConnectionHelper.OdbConnect.Client.Add(client);
                 OdbConnectionHelper.OdbConnect.SaveChanges();
+
+                userID = sqlConn1.UserID;
 
                 MessageBox.Show("Пользователь " + login + " создан!",
                     "Регистрация",
@@ -185,7 +199,7 @@ namespace DevelopmentRepairEngine.pages
                     MessageBoxImage.Information);
 
                 CreateActionList();
-                ControlHelper.frmobj.Navigate(new PagesAuthorization());
+                ControlHelper.mainWindowFraim.frmobj.Navigate(new PagesAuthorization());
             }
             catch (Exception ex)
             {
@@ -203,17 +217,12 @@ namespace DevelopmentRepairEngine.pages
         {
             try
             {
-                var sqlConn = OdbConnectionHelper.OdbConnect.User.FirstOrDefault(
-                    x => String.Compare(x.Login, login, StringComparison.InvariantCulture) == 0);
-
-                BufferUser.userid = sqlConn.UserID;
-
                 ActionLog actionLog = new ActionLog()
                 {
                     DateAndTime = DateTime.Now,
                     UserID = BufferUser.userid,
-                    ActionStatusID = 3,
-                    Descryption = "Пользователь был создан"
+                    ActionStatusID = 1,
+                    Descryption = "Нет дополнительных комментариев"
                 };
 
                 OdbConnectionHelper.OdbConnect.ActionLog.Add(actionLog);
@@ -238,7 +247,7 @@ namespace DevelopmentRepairEngine.pages
             TxbPassword1.Password = null;
             TxbPassword2.Password = null;
 
-            ControlHelper.frmobj.Navigate(new PagesAuthorization());
+            ControlHelper.mainWindowFraim.frmobj.Navigate(new PagesAuthorization());
         }
 
         private void BtnLosePassword_Click(object sender, RoutedEventArgs e)
@@ -251,9 +260,7 @@ namespace DevelopmentRepairEngine.pages
             TxbPassword1.Password = null;
             TxbPassword2.Password = null;
 
-            ControlHelper.frmobj.Navigate(new PagesLosePassword());
+            ControlHelper.mainWindowFraim.frmobj.Navigate(new PagesLosePassword());
         }
-
-
     }
 }

@@ -102,7 +102,13 @@
     <Compile Include="data\ActionStatus.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="data\Client.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="data\Comment.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="data\Employee.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="data\HomeTech.cs">
@@ -139,6 +145,8 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="data\OdbConnectionHelper.cs" />
+    <Compile Include="data\script\BufferDataList.cs" />
+    <Compile Include="data\script\BufferDataOrderList.cs" />
     <Compile Include="data\script\BufferUser.cs" />
     <Compile Include="data\sysdiagrams.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -156,6 +164,30 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="systemwindowpages\MainWindowApp\pages\orderS\PagesCheckOrder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="systemwindowpages\MainWindowApp\pages\orderS\PagesCreateOrder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="systemwindowpages\MainWindowApp\pages\orderS\WindowEditOreder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="systemwindowpages\MainWindowApp\pages\PagesMessage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="systemwindowpages\MainWindowApp\pages\PagesStatistick.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="systemwindowpages\MainWindowApp\pages\userS\PagesUsers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="systemwindowpages\MainWindowApp\windowMainWindowApp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -175,6 +207,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="systemwindowpages\ControlHelper.cs" />
+    <Compile Include="systemwindowpages\MainWindowApp\pages\orderS\PagesCheckOrder.xaml.cs">
+      <DependentUpon>PagesCheckOrder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="systemwindowpages\MainWindowApp\pages\orderS\PagesCreateOrder.xaml.cs">
+      <DependentUpon>PagesCreateOrder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="systemwindowpages\MainWindowApp\pages\orderS\WindowEditOreder.xaml.cs">
+      <DependentUpon>WindowEditOreder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="systemwindowpages\MainWindowApp\pages\PagesMessage.xaml.cs">
+      <DependentUpon>PagesMessage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="systemwindowpages\MainWindowApp\pages\PagesStatistick.xaml.cs">
+      <DependentUpon>PagesStatistick.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="systemwindowpages\MainWindowApp\pages\userS\PagesUsers.xaml.cs">
+      <DependentUpon>PagesUsers.xaml</DependentUpon>
+    </Compile>
     <Compile Include="systemwindowpages\MainWindowApp\windowMainWindowApp.xaml.cs">
       <DependentUpon>windowMainWindowApp.xaml</DependentUpon>
     </Compile>
@@ -223,7 +273,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="script\" />
-    <Folder Include="systemwindowpages\MainWindowApp\pages\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8.1">
@@ -270,6 +319,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="res\image\Exit.png" />
     <Resource Include="res\image\Statistics.png" />
     <Resource Include="res\image\CreateOrder.png" />
     <Resource Include="res\image\Naviget.png" />

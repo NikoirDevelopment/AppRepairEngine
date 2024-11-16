@@ -3,6 +3,7 @@ using DevelopmentRepairEngine.data.script;
 using DevelopmentRepairEngine.pages.MainWindowApp;
 using System;
 using System.Collections.Generic;
+using System.Data.Odbc;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,36 +40,56 @@ namespace DevelopmentRepairEngine.pages
                 {
                     if (password.Length > 0)
                     {
-                        var sqlConn = OdbConnectionHelper.OdbConnect.User.FirstOrDefault(
-                        x => String.Compare(x.Login, login, StringComparison.InvariantCulture) == 0 &&
-                        String.Compare(x.Password, password, StringComparison.InvariantCulture) == 0);
+                        var sqlConn1 = OdbConnectionHelper.OdbConnect.Client.FirstOrDefault(
+                            x => String.Compare(x.Login, login, StringComparison.InvariantCulture) == 0 &&
+                            String.Compare(x.Password, password, StringComparison.InvariantCulture) == 0);
 
-                        if (sqlConn != null)
+                        if (sqlConn1 == null)
                         {
-                            if ((sqlConn.Login == login) && (sqlConn.Password == password))
+                            var sqlConn2 = OdbConnectionHelper.OdbConnect.Employee.FirstOrDefault(
+                                x => String.Compare(x.Login, login, StringComparison.InvariantCulture) == 0 &&
+                                String.Compare(x.Password, password, StringComparison.InvariantCulture) == 0);
+
+                            if (sqlConn2 != null)
                             {
-                                BufferUser.userid = sqlConn.UserID;
-                                BufferUser.name = sqlConn.Name;
-                                BufferUser.surname = sqlConn.Surname;
-                                BufferUser.midllename = sqlConn.MiddleName;
-                                BufferUser.login = sqlConn.Login;
-                                BufferUser.role = sqlConn.RoleID;
-                                LoadData();
+                                var sqlConn4 = OdbConnectionHelper.OdbConnect.User.FirstOrDefault(
+                                    x => x.UserID == sqlConn2.UserID);
+
+                                if ((sqlConn2.Login == login) && (sqlConn2.Password == password))
+                                {
+                                    BufferUser.userid = sqlConn4.UserID;
+                                    BufferUser.name = sqlConn4.Name;
+                                    BufferUser.surname = sqlConn4.Surname;
+                                    BufferUser.midllename = sqlConn4.MiddleName;
+                                    BufferUser.login = sqlConn2.Login;
+                                    BufferUser.role = sqlConn2.RoleID;
+                                    LoadData();
+                                }
                             }
                             else
                             {
                                 MessageBox.Show("Пользователь " + login + " не найден!",
-                                "Системное уведомление",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Information);
+                                    "Системное уведомление",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Information);
                             }
                         }
                         else
                         {
-                            MessageBox.Show("Пользователь " + login + " не найден!",
-                                "Системное уведомление",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Information);
+                            var sqlConn3 = OdbConnectionHelper.OdbConnect.User.FirstOrDefault(
+                                x => x.UserID == sqlConn1.UserID);
+
+                            if ((sqlConn1.Login == login) && (sqlConn1.Password == password))
+                            {
+                                BufferUser.userid = sqlConn3.UserID;
+                                BufferUser.clientid = sqlConn1.ClientID;
+                                BufferUser.name = sqlConn3.Name;
+                                BufferUser.surname = sqlConn3.Surname;
+                                BufferUser.midllename = sqlConn3.MiddleName;
+                                BufferUser.login = sqlConn1.Login;
+                                BufferUser.role = sqlConn1.RoleID;
+                                LoadData();
+                            }
                         }
                     }
                     else
@@ -121,8 +142,8 @@ namespace DevelopmentRepairEngine.pages
                 {
                     DateAndTime = DateTime.Now,
                     UserID = BufferUser.userid,
-                    ActionStatusID = 1,
-                    Descryption = ""
+                    ActionStatusID = 2,
+                    Descryption = "Нет дополнительных комментариев"
                 };
 
                 OdbConnectionHelper.OdbConnect.ActionLog.Add(actionLog);
@@ -139,12 +160,12 @@ namespace DevelopmentRepairEngine.pages
 
         private void BtnReg_Click(object sender, RoutedEventArgs e)
         {
-            ControlHelper.frmobj.Navigate(new PagesRegistration());
+            ControlHelper.mainWindowFraim.frmobj.Navigate(new PagesRegistration());
         }
 
         private void BtnLose_Click(object sender, RoutedEventArgs e)
         {
-            ControlHelper.frmobj.Navigate(new PagesLosePassword());
+            ControlHelper.mainWindowFraim.frmobj.Navigate(new PagesLosePassword());
         }
     }
 }

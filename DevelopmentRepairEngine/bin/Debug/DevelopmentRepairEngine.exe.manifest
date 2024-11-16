@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DevelopmentRepairEngine.exe" size="176128">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DevelopmentRepairEngine.exe" size="237568">
       <assemblyIdentity name="DevelopmentRepairEngine" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>ecVPrN3hSrHI8Dl+Q4PbHy6FWYmhtplq6fiImXlk8I0=</dsig:DigestValue>
+        <dsig:DigestValue>PYMr/meGcshqQVdYtor844mBnWZl+CTJ1TRI6wqpVWI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

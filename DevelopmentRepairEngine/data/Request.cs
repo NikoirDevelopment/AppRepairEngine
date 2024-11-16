@@ -24,7 +24,7 @@ namespace DevelopmentRepairEngine.data
         public int RequestID { get; set; }
         public System.DateTime StartDate { get; set; }
         public int HomeTechID { get; set; }
-        public int TechFactory { get; set; }
+        public int TechFactoryID { get; set; }
         public int ModelTechFactoryID { get; set; }
         public int TechColorID { get; set; }
         public string ProblemeDescryption { get; set; }
@@ -34,16 +34,16 @@ namespace DevelopmentRepairEngine.data
         public Nullable<int> MasterID { get; set; }
         public int ClientID { get; set; }
     
+        public virtual Client Client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comment { get; set; }
+        public virtual Employee Employee { get; set; }
         public virtual HomeTech HomeTech { get; set; }
         public virtual ModelTechFactory ModelTechFactory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NewMessage> NewMessage { get; set; }
-        public virtual User User { get; set; }
-        public virtual User User1 { get; set; }
         public virtual RequestStatus RequestStatus { get; set; }
         public virtual TechColor TechColor { get; set; }
-        public virtual TechFactory TechFactory1 { get; set; }
+        public virtual TechFactory TechFactory { get; set; }
     }
 }

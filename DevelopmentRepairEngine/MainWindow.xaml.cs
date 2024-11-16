@@ -29,15 +29,12 @@ namespace DevelopmentRepairEngine
         {
             InitializeComponent();
             LoadData();
-
-            windowMainWindowApp windowMainWindowApp = new windowMainWindowApp();
-            windowMainWindowApp.Show();
         }
 
         private void LoadData()
         {
-            ControlHelper.frmobj = FrmMain;
-            ControlHelper.frmobj.Navigate(new PagesAuthorization());
+            ControlHelper.mainWindowFraim.frmobj = FrmMain;
+            ControlHelper.mainWindowFraim.frmobj.Navigate(new PagesAuthorization());
 
             OdbConnectionHelper.OdbConnect = new OdbRepairEngineEntities();
         }

@@ -12,6 +12,22 @@ CREATE TABLE [User] (
 	, [Name] VARCHAR(50) NOT NULL
 	, [MiddleName] VARCHAR(50) NOT NULL
 	, [Phone] FLOAT NOT NULL
+);
+
+CREATE TABLE [Client] (
+	[ClientID] INT IDENTITY(1,1) PRIMARY KEY
+	, [UserID] INT
+		FOREIGN KEY REFERENCES [User](UserID)
+	, [Login] VARCHAR(50) NOT NULL
+	, [Password] VARCHAR(50) NOT NULL
+	, [RoleID] INT NOT NULL
+		FOREIGN KEY REFERENCES [Role](RoleID)
+);
+
+CREATE TABLE [Employee] (
+	[EmployeeID] INT IDENTITY(1,1) PRIMARY KEY
+	, [UserID] INT
+		FOREIGN KEY REFERENCES [User](UserID)
 	, [Login] VARCHAR(50) NOT NULL
 	, [Password] VARCHAR(50) NOT NULL
 	, [RoleID] INT NOT NULL
@@ -50,7 +66,7 @@ CREATE TABLE [Request] (
 	, [StartDate] DATE NOT NULL
 	, [HomeTechID] INT NOT NULL
 		FOREIGN KEY REFERENCES [HomeTech](HomeTechID)
-	, [TechFactory] INT NOT NULL
+	, [TechFactoryID] INT NOT NULL
 		FOREIGN KEY REFERENCES [TechFactory](TechFactoryID)
 	, [ModelTechFactoryID] INT NOT NULL
 		FOREIGN KEY REFERENCES [ModelTechFactory](ModelTechFactoryID)
@@ -62,9 +78,9 @@ CREATE TABLE [Request] (
 	, [CompletionDate] DATE
 	, [RepairParts] VARCHAR(MAX) NOT NULL
 	, [MasterID] INT
-		FOREIGN KEY REFERENCES [User](UserID)
+		FOREIGN KEY REFERENCES [Employee](EmployeeID)
 	, [ClientID] INT NOT NULL
-		FOREIGN KEY REFERENCES [User](UserID)
+		FOREIGN KEY REFERENCES [Client](ClientID)
 );
 
 CREATE TABLE [Comment] (

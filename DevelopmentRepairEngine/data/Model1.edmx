@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище OdbRepairEngineModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище OdbRepairEngineModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ActionLog">
           <Key>
             <PropertyRef Name="ActionLogID" />
@@ -22,6 +22,16 @@
           <Property Name="ActionStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Type" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientID" />
+          </Key>
+          <Property Name="ClientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Comment">
           <Key>
             <PropertyRef Name="CommentID" />
@@ -30,6 +40,16 @@
           <Property Name="Message" Type="varchar(max)" Nullable="false" />
           <Property Name="MasterID" Type="int" Nullable="false" />
           <Property Name="RequestID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="HomeTech">
           <Key>
@@ -64,13 +84,13 @@
           <Property Name="RequestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StartDate" Type="date" Nullable="false" />
           <Property Name="HomeTechID" Type="int" Nullable="false" />
-          <Property Name="TechFactory" Type="int" Nullable="false" />
+          <Property Name="TechFactoryID" Type="int" Nullable="false" />
           <Property Name="ModelTechFactoryID" Type="int" Nullable="false" />
           <Property Name="TechColorID" Type="int" Nullable="false" />
           <Property Name="ProblemeDescryption" Type="varchar(max)" Nullable="false" />
           <Property Name="RequestStatusID" Type="int" Nullable="false" />
           <Property Name="CompletionDate" Type="date" />
-          <Property Name="RepairParts" Type="varchar(max)" Nullable="false" />
+          <Property Name="RepairParts" Type="varchar(max)" />
           <Property Name="MasterID" Type="int" />
           <Property Name="ClientID" Type="int" Nullable="false" />
         </EntityType>
@@ -121,11 +141,8 @@
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="MiddleName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Phone" Type="float" Nullable="false" />
-          <Property Name="Login" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="RoleID" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__ActionLog__Actio__60A75C0F">
+        <Association Name="FK__ActionLog__Actio__5CD6CB2B">
           <End Role="ActionStatus" Type="Self.ActionStatus" Multiplicity="1" />
           <End Role="ActionLog" Type="Self.ActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -137,7 +154,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ActionLog__UserI__5FB337D6">
+        <Association Name="FK__ActionLog__UserI__5BE2A6F2">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="ActionLog" Type="Self.ActionLog" Multiplicity="*" />
           <ReferentialConstraint>
@@ -149,7 +166,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Comment__MasterI__70DDC3D8">
+        <Association Name="FK__Client__RoleID__3C69FB99">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Client__UserID__3B75D760">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__MasterI__5629CD9C">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -161,7 +202,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Comment__Request__71D1E811">
+        <Association Name="FK__Comment__Request__571DF1D5">
           <End Role="Request" Type="Self.Request" Multiplicity="1" />
           <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
           <ReferentialConstraint>
@@ -173,7 +214,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ModelTech__TechF__403A8C7D">
+        <Association Name="FK__Employee__RoleID__403A8C7D">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Employee__UserID__3F466844">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ModelTech__TechF__46E78A0C">
           <End Role="TechFactory" Type="Self.TechFactory" Multiplicity="1" />
           <End Role="ModelTechFactory" Type="Self.ModelTechFactory" Multiplicity="*" />
           <ReferentialConstraint>
@@ -185,7 +250,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__NewMessag__Reque__74AE54BC">
+        <Association Name="FK__NewMessag__Reque__5FB337D6">
           <End Role="Request" Type="Self.Request" Multiplicity="1" />
           <End Role="NewMessage" Type="Self.NewMessage" Multiplicity="*" />
           <ReferentialConstraint>
@@ -197,7 +262,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__NewMessag__Reque__75A278F5">
+        <Association Name="FK__NewMessag__Reque__60A75C0F">
           <End Role="RequestStatus" Type="Self.RequestStatus" Multiplicity="1" />
           <End Role="NewMessage" Type="Self.NewMessage" Multiplicity="*" />
           <ReferentialConstraint>
@@ -209,7 +274,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__NewMessag__UserI__76969D2E">
+        <Association Name="FK__NewMessag__UserI__619B8048">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="NewMessage" Type="Self.NewMessage" Multiplicity="*" />
           <ReferentialConstraint>
@@ -221,19 +286,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Request__ClientI__6E01572D">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
+        <Association Name="FK__Request__ClientI__534D60F1">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
           <End Role="Request" Type="Self.Request" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserID" />
+            <Principal Role="Client">
+              <PropertyRef Name="ClientID" />
             </Principal>
             <Dependent Role="Request">
               <PropertyRef Name="ClientID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Request__HomeTec__68487DD7">
+        <Association Name="FK__Request__HomeTec__4D94879B">
           <End Role="HomeTech" Type="Self.HomeTech" Multiplicity="1" />
           <End Role="Request" Type="Self.Request" Multiplicity="*" />
           <ReferentialConstraint>
@@ -245,19 +310,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Request__MasterI__6D0D32F4">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+        <Association Name="FK__Request__MasterI__52593CB8">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
           <End Role="Request" Type="Self.Request" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserID" />
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
             </Principal>
             <Dependent Role="Request">
               <PropertyRef Name="MasterID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Request__ModelTe__6A30C649">
+        <Association Name="FK__Request__ModelTe__4F7CD00D">
           <End Role="ModelTechFactory" Type="Self.ModelTechFactory" Multiplicity="1" />
           <End Role="Request" Type="Self.Request" Multiplicity="*" />
           <ReferentialConstraint>
@@ -269,7 +334,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Request__Request__6C190EBB">
+        <Association Name="FK__Request__Request__5165187F">
           <End Role="RequestStatus" Type="Self.RequestStatus" Multiplicity="1" />
           <End Role="Request" Type="Self.Request" Multiplicity="*" />
           <ReferentialConstraint>
@@ -281,7 +346,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Request__TechCol__6B24EA82">
+        <Association Name="FK__Request__TechCol__5070F446">
           <End Role="TechColor" Type="Self.TechColor" Multiplicity="1" />
           <End Role="Request" Type="Self.Request" Multiplicity="*" />
           <ReferentialConstraint>
@@ -293,7 +358,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Request__TechFac__693CA210">
+        <Association Name="FK__Request__TechFac__4E88ABD4">
           <End Role="TechFactory" Type="Self.TechFactory" Multiplicity="1" />
           <End Role="Request" Type="Self.Request" Multiplicity="*" />
           <ReferentialConstraint>
@@ -301,26 +366,16 @@
               <PropertyRef Name="TechFactoryID" />
             </Principal>
             <Dependent Role="Request">
-              <PropertyRef Name="TechFactory" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__User__RoleID__398D8EEE">
-          <End Role="Role" Type="Self.Role" Multiplicity="1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="RoleID" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="RoleID" />
+              <PropertyRef Name="TechFactoryID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Хранилище OdbRepairEngineModelContainer">
           <EntitySet Name="ActionLog" EntityType="Self.ActionLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ActionStatus" EntityType="Self.ActionStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comment" EntityType="Self.Comment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HomeTech" EntityType="Self.HomeTech" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ModelTechFactory" EntityType="Self.ModelTechFactory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NewMessage" EntityType="Self.NewMessage" Schema="dbo" store:Type="Tables" />
@@ -331,76 +386,180 @@
           <EntitySet Name="TechColor" EntityType="Self.TechColor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TechFactory" EntityType="Self.TechFactory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__ActionLog__Actio__60A75C0F" Association="Self.FK__ActionLog__Actio__60A75C0F">
+          <AssociationSet Name="FK__ActionLog__Actio__5CD6CB2B" Association="Self.FK__ActionLog__Actio__5CD6CB2B">
             <End Role="ActionStatus" EntitySet="ActionStatus" />
             <End Role="ActionLog" EntitySet="ActionLog" />
           </AssociationSet>
-          <AssociationSet Name="FK__ActionLog__UserI__5FB337D6" Association="Self.FK__ActionLog__UserI__5FB337D6">
+          <AssociationSet Name="FK__ActionLog__UserI__5BE2A6F2" Association="Self.FK__ActionLog__UserI__5BE2A6F2">
             <End Role="User" EntitySet="User" />
             <End Role="ActionLog" EntitySet="ActionLog" />
           </AssociationSet>
-          <AssociationSet Name="FK__Comment__MasterI__70DDC3D8" Association="Self.FK__Comment__MasterI__70DDC3D8">
+          <AssociationSet Name="FK__Client__RoleID__3C69FB99" Association="Self.FK__Client__RoleID__3C69FB99">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Client__UserID__3B75D760" Association="Self.FK__Client__UserID__3B75D760">
+            <End Role="User" EntitySet="User" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__MasterI__5629CD9C" Association="Self.FK__Comment__MasterI__5629CD9C">
             <End Role="User" EntitySet="User" />
             <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
-          <AssociationSet Name="FK__Comment__Request__71D1E811" Association="Self.FK__Comment__Request__71D1E811">
+          <AssociationSet Name="FK__Comment__Request__571DF1D5" Association="Self.FK__Comment__Request__571DF1D5">
             <End Role="Request" EntitySet="Request" />
             <End Role="Comment" EntitySet="Comment" />
           </AssociationSet>
-          <AssociationSet Name="FK__ModelTech__TechF__403A8C7D" Association="Self.FK__ModelTech__TechF__403A8C7D">
+          <AssociationSet Name="FK__Employee__RoleID__403A8C7D" Association="Self.FK__Employee__RoleID__403A8C7D">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Employee__UserID__3F466844" Association="Self.FK__Employee__UserID__3F466844">
+            <End Role="User" EntitySet="User" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ModelTech__TechF__46E78A0C" Association="Self.FK__ModelTech__TechF__46E78A0C">
             <End Role="TechFactory" EntitySet="TechFactory" />
             <End Role="ModelTechFactory" EntitySet="ModelTechFactory" />
           </AssociationSet>
-          <AssociationSet Name="FK__NewMessag__Reque__74AE54BC" Association="Self.FK__NewMessag__Reque__74AE54BC">
+          <AssociationSet Name="FK__NewMessag__Reque__5FB337D6" Association="Self.FK__NewMessag__Reque__5FB337D6">
             <End Role="Request" EntitySet="Request" />
             <End Role="NewMessage" EntitySet="NewMessage" />
           </AssociationSet>
-          <AssociationSet Name="FK__NewMessag__Reque__75A278F5" Association="Self.FK__NewMessag__Reque__75A278F5">
+          <AssociationSet Name="FK__NewMessag__Reque__60A75C0F" Association="Self.FK__NewMessag__Reque__60A75C0F">
             <End Role="RequestStatus" EntitySet="RequestStatus" />
             <End Role="NewMessage" EntitySet="NewMessage" />
           </AssociationSet>
-          <AssociationSet Name="FK__NewMessag__UserI__76969D2E" Association="Self.FK__NewMessag__UserI__76969D2E">
+          <AssociationSet Name="FK__NewMessag__UserI__619B8048" Association="Self.FK__NewMessag__UserI__619B8048">
             <End Role="User" EntitySet="User" />
             <End Role="NewMessage" EntitySet="NewMessage" />
           </AssociationSet>
-          <AssociationSet Name="FK__Request__ClientI__6E01572D" Association="Self.FK__Request__ClientI__6E01572D">
-            <End Role="User" EntitySet="User" />
+          <AssociationSet Name="FK__Request__ClientI__534D60F1" Association="Self.FK__Request__ClientI__534D60F1">
+            <End Role="Client" EntitySet="Client" />
             <End Role="Request" EntitySet="Request" />
           </AssociationSet>
-          <AssociationSet Name="FK__Request__HomeTec__68487DD7" Association="Self.FK__Request__HomeTec__68487DD7">
+          <AssociationSet Name="FK__Request__HomeTec__4D94879B" Association="Self.FK__Request__HomeTec__4D94879B">
             <End Role="HomeTech" EntitySet="HomeTech" />
             <End Role="Request" EntitySet="Request" />
           </AssociationSet>
-          <AssociationSet Name="FK__Request__MasterI__6D0D32F4" Association="Self.FK__Request__MasterI__6D0D32F4">
-            <End Role="User" EntitySet="User" />
+          <AssociationSet Name="FK__Request__MasterI__52593CB8" Association="Self.FK__Request__MasterI__52593CB8">
+            <End Role="Employee" EntitySet="Employee" />
             <End Role="Request" EntitySet="Request" />
           </AssociationSet>
-          <AssociationSet Name="FK__Request__ModelTe__6A30C649" Association="Self.FK__Request__ModelTe__6A30C649">
+          <AssociationSet Name="FK__Request__ModelTe__4F7CD00D" Association="Self.FK__Request__ModelTe__4F7CD00D">
             <End Role="ModelTechFactory" EntitySet="ModelTechFactory" />
             <End Role="Request" EntitySet="Request" />
           </AssociationSet>
-          <AssociationSet Name="FK__Request__Request__6C190EBB" Association="Self.FK__Request__Request__6C190EBB">
+          <AssociationSet Name="FK__Request__Request__5165187F" Association="Self.FK__Request__Request__5165187F">
             <End Role="RequestStatus" EntitySet="RequestStatus" />
             <End Role="Request" EntitySet="Request" />
           </AssociationSet>
-          <AssociationSet Name="FK__Request__TechCol__6B24EA82" Association="Self.FK__Request__TechCol__6B24EA82">
+          <AssociationSet Name="FK__Request__TechCol__5070F446" Association="Self.FK__Request__TechCol__5070F446">
             <End Role="TechColor" EntitySet="TechColor" />
             <End Role="Request" EntitySet="Request" />
           </AssociationSet>
-          <AssociationSet Name="FK__Request__TechFac__693CA210" Association="Self.FK__Request__TechFac__693CA210">
+          <AssociationSet Name="FK__Request__TechFac__4E88ABD4" Association="Self.FK__Request__TechFac__4E88ABD4">
             <End Role="TechFactory" EntitySet="TechFactory" />
             <End Role="Request" EntitySet="Request" />
           </AssociationSet>
-          <AssociationSet Name="FK__User__RoleID__398D8EEE" Association="Self.FK__User__RoleID__398D8EEE">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="OdbRepairEngineModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="OdbRepairEngineEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ActionLog" EntityType="OdbRepairEngineModel.ActionLog" />
+          <EntitySet Name="ActionStatus" EntityType="OdbRepairEngineModel.ActionStatus" />
+          <EntitySet Name="Client" EntityType="OdbRepairEngineModel.Client" />
+          <EntitySet Name="Comment" EntityType="OdbRepairEngineModel.Comment" />
+          <EntitySet Name="Employee" EntityType="OdbRepairEngineModel.Employee" />
+          <EntitySet Name="HomeTech" EntityType="OdbRepairEngineModel.HomeTech" />
+          <EntitySet Name="ModelTechFactory" EntityType="OdbRepairEngineModel.ModelTechFactory" />
+          <EntitySet Name="NewMessage" EntityType="OdbRepairEngineModel.NewMessage" />
+          <EntitySet Name="Request" EntityType="OdbRepairEngineModel.Request" />
+          <EntitySet Name="RequestStatus" EntityType="OdbRepairEngineModel.RequestStatus" />
+          <EntitySet Name="Role" EntityType="OdbRepairEngineModel.Role" />
+          <EntitySet Name="sysdiagrams" EntityType="OdbRepairEngineModel.sysdiagrams" />
+          <EntitySet Name="TechColor" EntityType="OdbRepairEngineModel.TechColor" />
+          <EntitySet Name="TechFactory" EntityType="OdbRepairEngineModel.TechFactory" />
+          <EntitySet Name="User" EntityType="OdbRepairEngineModel.User" />
+          <AssociationSet Name="FK__ActionLog__Actio__5CD6CB2B" Association="OdbRepairEngineModel.FK__ActionLog__Actio__5CD6CB2B">
+            <End Role="ActionStatus" EntitySet="ActionStatus" />
+            <End Role="ActionLog" EntitySet="ActionLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ActionLog__UserI__5BE2A6F2" Association="OdbRepairEngineModel.FK__ActionLog__UserI__5BE2A6F2">
+            <End Role="User" EntitySet="User" />
+            <End Role="ActionLog" EntitySet="ActionLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Client__RoleID__3C69FB99" Association="OdbRepairEngineModel.FK__Client__RoleID__3C69FB99">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Client__UserID__3B75D760" Association="OdbRepairEngineModel.FK__Client__UserID__3B75D760">
+            <End Role="User" EntitySet="User" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Request__ClientI__534D60F1" Association="OdbRepairEngineModel.FK__Request__ClientI__534D60F1">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__MasterI__5629CD9C" Association="OdbRepairEngineModel.FK__Comment__MasterI__5629CD9C">
+            <End Role="User" EntitySet="User" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comment__Request__571DF1D5" Association="OdbRepairEngineModel.FK__Comment__Request__571DF1D5">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="Comment" EntitySet="Comment" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Employee__RoleID__403A8C7D" Association="OdbRepairEngineModel.FK__Employee__RoleID__403A8C7D">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Employee__UserID__3F466844" Association="OdbRepairEngineModel.FK__Employee__UserID__3F466844">
+            <End Role="User" EntitySet="User" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Request__MasterI__52593CB8" Association="OdbRepairEngineModel.FK__Request__MasterI__52593CB8">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Request__HomeTec__4D94879B" Association="OdbRepairEngineModel.FK__Request__HomeTec__4D94879B">
+            <End Role="HomeTech" EntitySet="HomeTech" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ModelTech__TechF__46E78A0C" Association="OdbRepairEngineModel.FK__ModelTech__TechF__46E78A0C">
+            <End Role="TechFactory" EntitySet="TechFactory" />
+            <End Role="ModelTechFactory" EntitySet="ModelTechFactory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Request__ModelTe__4F7CD00D" Association="OdbRepairEngineModel.FK__Request__ModelTe__4F7CD00D">
+            <End Role="ModelTechFactory" EntitySet="ModelTechFactory" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NewMessag__Reque__5FB337D6" Association="OdbRepairEngineModel.FK__NewMessag__Reque__5FB337D6">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="NewMessage" EntitySet="NewMessage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NewMessag__Reque__60A75C0F" Association="OdbRepairEngineModel.FK__NewMessag__Reque__60A75C0F">
+            <End Role="RequestStatus" EntitySet="RequestStatus" />
+            <End Role="NewMessage" EntitySet="NewMessage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NewMessag__UserI__619B8048" Association="OdbRepairEngineModel.FK__NewMessag__UserI__619B8048">
+            <End Role="User" EntitySet="User" />
+            <End Role="NewMessage" EntitySet="NewMessage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Request__Request__5165187F" Association="OdbRepairEngineModel.FK__Request__Request__5165187F">
+            <End Role="RequestStatus" EntitySet="RequestStatus" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Request__TechCol__5070F446" Association="OdbRepairEngineModel.FK__Request__TechCol__5070F446">
+            <End Role="TechColor" EntitySet="TechColor" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Request__TechFac__4E88ABD4" Association="OdbRepairEngineModel.FK__Request__TechFac__4E88ABD4">
+            <End Role="TechFactory" EntitySet="TechFactory" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="ActionLog">
           <Key>
             <PropertyRef Name="ActionLogID" />
@@ -409,36 +568,62 @@
           <Property Name="DateAndTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="ActionStatusID" Type="Int32" Nullable="false" />
-          <Property Name="Descryption" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="ActionStatus" Relationship="Self.FK__ActionLog__Actio__60A75C0F" FromRole="ActionLog" ToRole="ActionStatus" />
-          <NavigationProperty Name="User" Relationship="Self.FK__ActionLog__UserI__5FB337D6" FromRole="ActionLog" ToRole="User" />
+          <Property Name="Descryption" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ActionStatus" Relationship="OdbRepairEngineModel.FK__ActionLog__Actio__5CD6CB2B" FromRole="ActionLog" ToRole="ActionStatus" />
+          <NavigationProperty Name="User" Relationship="OdbRepairEngineModel.FK__ActionLog__UserI__5BE2A6F2" FromRole="ActionLog" ToRole="User" />
         </EntityType>
         <EntityType Name="ActionStatus">
           <Key>
             <PropertyRef Name="ActionStatusID" />
           </Key>
           <Property Name="ActionStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="ActionLog" Relationship="Self.FK__ActionLog__Actio__60A75C0F" FromRole="ActionStatus" ToRole="ActionLog" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ActionLog" Relationship="OdbRepairEngineModel.FK__ActionLog__Actio__5CD6CB2B" FromRole="ActionStatus" ToRole="ActionLog" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientID" />
+          </Key>
+          <Property Name="ClientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="OdbRepairEngineModel.FK__Client__RoleID__3C69FB99" FromRole="Client" ToRole="Role" />
+          <NavigationProperty Name="User" Relationship="OdbRepairEngineModel.FK__Client__UserID__3B75D760" FromRole="Client" ToRole="User" />
+          <NavigationProperty Name="Request" Relationship="OdbRepairEngineModel.FK__Request__ClientI__534D60F1" FromRole="Client" ToRole="Request" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
             <PropertyRef Name="CommentID" />
           </Key>
           <Property Name="CommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="MasterID" Type="Int32" Nullable="false" />
           <Property Name="RequestID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK__Comment__MasterI__70DDC3D8" FromRole="Comment" ToRole="User" />
-          <NavigationProperty Name="Request" Relationship="Self.FK__Comment__Request__71D1E811" FromRole="Comment" ToRole="Request" />
+          <NavigationProperty Name="User" Relationship="OdbRepairEngineModel.FK__Comment__MasterI__5629CD9C" FromRole="Comment" ToRole="User" />
+          <NavigationProperty Name="Request" Relationship="OdbRepairEngineModel.FK__Comment__Request__571DF1D5" FromRole="Comment" ToRole="Request" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="OdbRepairEngineModel.FK__Employee__RoleID__403A8C7D" FromRole="Employee" ToRole="Role" />
+          <NavigationProperty Name="User" Relationship="OdbRepairEngineModel.FK__Employee__UserID__3F466844" FromRole="Employee" ToRole="User" />
+          <NavigationProperty Name="Request" Relationship="OdbRepairEngineModel.FK__Request__MasterI__52593CB8" FromRole="Employee" ToRole="Request" />
         </EntityType>
         <EntityType Name="HomeTech">
           <Key>
             <PropertyRef Name="HomeTechID" />
           </Key>
           <Property Name="HomeTechID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Type" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Request" Relationship="Self.FK__Request__HomeTec__68487DD7" FromRole="HomeTech" ToRole="Request" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Request" Relationship="OdbRepairEngineModel.FK__Request__HomeTec__4D94879B" FromRole="HomeTech" ToRole="Request" />
         </EntityType>
         <EntityType Name="ModelTechFactory">
           <Key>
@@ -446,9 +631,9 @@
           </Key>
           <Property Name="ModelTechFactoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TechFactoryID" Type="Int32" Nullable="false" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="TechFactory" Relationship="Self.FK__ModelTech__TechF__403A8C7D" FromRole="ModelTechFactory" ToRole="TechFactory" />
-          <NavigationProperty Name="Request" Relationship="Self.FK__Request__ModelTe__6A30C649" FromRole="ModelTechFactory" ToRole="Request" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TechFactory" Relationship="OdbRepairEngineModel.FK__ModelTech__TechF__46E78A0C" FromRole="ModelTechFactory" ToRole="TechFactory" />
+          <NavigationProperty Name="Request" Relationship="OdbRepairEngineModel.FK__Request__ModelTe__4F7CD00D" FromRole="ModelTechFactory" ToRole="Request" />
         </EntityType>
         <EntityType Name="NewMessage">
           <Key>
@@ -457,12 +642,12 @@
           <Property Name="NewMessageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DateAndTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="RequestID" Type="Int32" Nullable="false" />
-          <Property Name="Descryption" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descryption" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="RequestStatusID" Type="Int32" Nullable="false" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Request" Relationship="Self.FK__NewMessag__Reque__74AE54BC" FromRole="NewMessage" ToRole="Request" />
-          <NavigationProperty Name="RequestStatus" Relationship="Self.FK__NewMessag__Reque__75A278F5" FromRole="NewMessage" ToRole="RequestStatus" />
-          <NavigationProperty Name="User" Relationship="Self.FK__NewMessag__UserI__76969D2E" FromRole="NewMessage" ToRole="User" />
+          <NavigationProperty Name="Request" Relationship="OdbRepairEngineModel.FK__NewMessag__Reque__5FB337D6" FromRole="NewMessage" ToRole="Request" />
+          <NavigationProperty Name="RequestStatus" Relationship="OdbRepairEngineModel.FK__NewMessag__Reque__60A75C0F" FromRole="NewMessage" ToRole="RequestStatus" />
+          <NavigationProperty Name="User" Relationship="OdbRepairEngineModel.FK__NewMessag__UserI__619B8048" FromRole="NewMessage" ToRole="User" />
         </EntityType>
         <EntityType Name="Request">
           <Key>
@@ -471,47 +656,48 @@
           <Property Name="RequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="HomeTechID" Type="Int32" Nullable="false" />
-          <Property Name="TechFactory" Type="Int32" Nullable="false" />
+          <Property Name="TechFactoryID" Type="Int32" Nullable="false" />
           <Property Name="ModelTechFactoryID" Type="Int32" Nullable="false" />
           <Property Name="TechColorID" Type="Int32" Nullable="false" />
-          <Property Name="ProblemeDescryption" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProblemeDescryption" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="RequestStatusID" Type="Int32" Nullable="false" />
           <Property Name="CompletionDate" Type="DateTime" Precision="0" />
-          <Property Name="RepairParts" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RepairParts" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="MasterID" Type="Int32" />
           <Property Name="ClientID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Comment" Relationship="Self.FK__Comment__Request__71D1E811" FromRole="Request" ToRole="Comment" />
-          <NavigationProperty Name="HomeTech" Relationship="Self.FK__Request__HomeTec__68487DD7" FromRole="Request" ToRole="HomeTech" />
-          <NavigationProperty Name="ModelTechFactory" Relationship="Self.FK__Request__ModelTe__6A30C649" FromRole="Request" ToRole="ModelTechFactory" />
-          <NavigationProperty Name="NewMessage" Relationship="Self.FK__NewMessag__Reque__74AE54BC" FromRole="Request" ToRole="NewMessage" />
-          <NavigationProperty Name="User" Relationship="Self.FK__Request__ClientI__6E01572D" FromRole="Request" ToRole="User" />
-          <NavigationProperty Name="User1" Relationship="Self.FK__Request__MasterI__6D0D32F4" FromRole="Request" ToRole="User" />
-          <NavigationProperty Name="RequestStatus" Relationship="Self.FK__Request__Request__6C190EBB" FromRole="Request" ToRole="RequestStatus" />
-          <NavigationProperty Name="TechColor" Relationship="Self.FK__Request__TechCol__6B24EA82" FromRole="Request" ToRole="TechColor" />
-          <NavigationProperty Name="TechFactory1" Relationship="Self.FK__Request__TechFac__693CA210" FromRole="Request" ToRole="TechFactory" />
+          <NavigationProperty Name="Client" Relationship="OdbRepairEngineModel.FK__Request__ClientI__534D60F1" FromRole="Request" ToRole="Client" />
+          <NavigationProperty Name="Comment" Relationship="OdbRepairEngineModel.FK__Comment__Request__571DF1D5" FromRole="Request" ToRole="Comment" />
+          <NavigationProperty Name="Employee" Relationship="OdbRepairEngineModel.FK__Request__MasterI__52593CB8" FromRole="Request" ToRole="Employee" />
+          <NavigationProperty Name="HomeTech" Relationship="OdbRepairEngineModel.FK__Request__HomeTec__4D94879B" FromRole="Request" ToRole="HomeTech" />
+          <NavigationProperty Name="ModelTechFactory" Relationship="OdbRepairEngineModel.FK__Request__ModelTe__4F7CD00D" FromRole="Request" ToRole="ModelTechFactory" />
+          <NavigationProperty Name="NewMessage" Relationship="OdbRepairEngineModel.FK__NewMessag__Reque__5FB337D6" FromRole="Request" ToRole="NewMessage" />
+          <NavigationProperty Name="RequestStatus" Relationship="OdbRepairEngineModel.FK__Request__Request__5165187F" FromRole="Request" ToRole="RequestStatus" />
+          <NavigationProperty Name="TechColor" Relationship="OdbRepairEngineModel.FK__Request__TechCol__5070F446" FromRole="Request" ToRole="TechColor" />
+          <NavigationProperty Name="TechFactory" Relationship="OdbRepairEngineModel.FK__Request__TechFac__4E88ABD4" FromRole="Request" ToRole="TechFactory" />
         </EntityType>
         <EntityType Name="RequestStatus">
           <Key>
             <PropertyRef Name="RequestStatusID" />
           </Key>
           <Property Name="RequestStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="NewMessage" Relationship="Self.FK__NewMessag__Reque__75A278F5" FromRole="RequestStatus" ToRole="NewMessage" />
-          <NavigationProperty Name="Request" Relationship="Self.FK__Request__Request__6C190EBB" FromRole="RequestStatus" ToRole="Request" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="NewMessage" Relationship="OdbRepairEngineModel.FK__NewMessag__Reque__60A75C0F" FromRole="RequestStatus" ToRole="NewMessage" />
+          <NavigationProperty Name="Request" Relationship="OdbRepairEngineModel.FK__Request__Request__5165187F" FromRole="RequestStatus" ToRole="Request" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="RoleID" />
           </Key>
           <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK__User__RoleID__398D8EEE" FromRole="Role" ToRole="User" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Client" Relationship="OdbRepairEngineModel.FK__Client__RoleID__3C69FB99" FromRole="Role" ToRole="Client" />
+          <NavigationProperty Name="Employee" Relationship="OdbRepairEngineModel.FK__Employee__RoleID__403A8C7D" FromRole="Role" ToRole="Employee" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="principal_id" Type="Int32" Nullable="false" />
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
@@ -522,40 +708,36 @@
             <PropertyRef Name="TechColorID" />
           </Key>
           <Property Name="TechColorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Color" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Request" Relationship="Self.FK__Request__TechCol__6B24EA82" FromRole="TechColor" ToRole="Request" />
+          <Property Name="Color" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Request" Relationship="OdbRepairEngineModel.FK__Request__TechCol__5070F446" FromRole="TechColor" ToRole="Request" />
         </EntityType>
         <EntityType Name="TechFactory">
           <Key>
             <PropertyRef Name="TechFactoryID" />
           </Key>
           <Property Name="TechFactoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="ModelTechFactory" Relationship="Self.FK__ModelTech__TechF__403A8C7D" FromRole="TechFactory" ToRole="ModelTechFactory" />
-          <NavigationProperty Name="Request" Relationship="Self.FK__Request__TechFac__693CA210" FromRole="TechFactory" ToRole="Request" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ModelTechFactory" Relationship="OdbRepairEngineModel.FK__ModelTech__TechF__46E78A0C" FromRole="TechFactory" ToRole="ModelTechFactory" />
+          <NavigationProperty Name="Request" Relationship="OdbRepairEngineModel.FK__Request__TechFac__4E88ABD4" FromRole="TechFactory" ToRole="Request" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
           <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MiddleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Phone" Type="Double" Nullable="false" />
-          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="RoleID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ActionLog" Relationship="Self.FK__ActionLog__UserI__5FB337D6" FromRole="User" ToRole="ActionLog" />
-          <NavigationProperty Name="Comment" Relationship="Self.FK__Comment__MasterI__70DDC3D8" FromRole="User" ToRole="Comment" />
-          <NavigationProperty Name="NewMessage" Relationship="Self.FK__NewMessag__UserI__76969D2E" FromRole="User" ToRole="NewMessage" />
-          <NavigationProperty Name="Request" Relationship="Self.FK__Request__ClientI__6E01572D" FromRole="User" ToRole="Request" />
-          <NavigationProperty Name="Request1" Relationship="Self.FK__Request__MasterI__6D0D32F4" FromRole="User" ToRole="Request" />
-          <NavigationProperty Name="Role" Relationship="Self.FK__User__RoleID__398D8EEE" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="ActionLog" Relationship="OdbRepairEngineModel.FK__ActionLog__UserI__5BE2A6F2" FromRole="User" ToRole="ActionLog" />
+          <NavigationProperty Name="Client" Relationship="OdbRepairEngineModel.FK__Client__UserID__3B75D760" FromRole="User" ToRole="Client" />
+          <NavigationProperty Name="Comment" Relationship="OdbRepairEngineModel.FK__Comment__MasterI__5629CD9C" FromRole="User" ToRole="Comment" />
+          <NavigationProperty Name="Employee" Relationship="OdbRepairEngineModel.FK__Employee__UserID__3F466844" FromRole="User" ToRole="Employee" />
+          <NavigationProperty Name="NewMessage" Relationship="OdbRepairEngineModel.FK__NewMessag__UserI__619B8048" FromRole="User" ToRole="NewMessage" />
         </EntityType>
-        <Association Name="FK__ActionLog__Actio__60A75C0F">
-          <End Role="ActionStatus" Type="Self.ActionStatus" Multiplicity="1" />
-          <End Role="ActionLog" Type="Self.ActionLog" Multiplicity="*" />
+        <Association Name="FK__ActionLog__Actio__5CD6CB2B">
+          <End Type="OdbRepairEngineModel.ActionStatus" Role="ActionStatus" Multiplicity="1" />
+          <End Type="OdbRepairEngineModel.ActionLog" Role="ActionLog" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ActionStatus">
               <PropertyRef Name="ActionStatusID" />
@@ -565,9 +747,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ActionLog__UserI__5FB337D6">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="ActionLog" Type="Self.ActionLog" Multiplicity="*" />
+        <Association Name="FK__ActionLog__UserI__5BE2A6F2">
+          <End Type="OdbRepairEngineModel.User" Role="User" Multiplicity="1" />
+          <End Type="OdbRepairEngineModel.ActionLog" Role="ActionLog" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserID" />
@@ -577,9 +759,45 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Comment__MasterI__70DDC3D8">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+        <Association Name="FK__Client__RoleID__3C69FB99">
+          <End Type="OdbRepairEngineModel.Role" Role="Role" Multiplicity="1" />
+          <End Type="OdbRepairEngineModel.Client" Role="Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Client__UserID__3B75D760">
+          <End Type="OdbRepairEngineModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="OdbRepairEngineModel.Client" Role="Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Request__ClientI__534D60F1">
+          <End Type="OdbRepairEngineModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="OdbRepairEngineModel.Request" Role="Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientID" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comment__MasterI__5629CD9C">
+          <End Type="OdbRepairEngineModel.User" Role="User" Multiplicity="1" />
+          <End Type="OdbRepairEngineModel.Comment" Role="Comment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserID" />
@@ -589,9 +807,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Comment__Request__71D1E811">
-          <End Role="Request" Type="Self.Request" Multiplicity="1" />
-          <End Role="Comment" Type="Self.Comment" Multiplicity="*" />
+        <Association Name="FK__Comment__Request__571DF1D5">
+          <End Type="OdbRepairEngineModel.Request" Role="Request" Multiplicity="1" />
+          <End Type="OdbRepairEngineModel.Comment" Role="Comment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Request">
               <PropertyRef Name="RequestID" />
@@ -601,9 +819,45 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Request__HomeTec__68487DD7">
-          <End Role="HomeTech" Type="Self.HomeTech" Multiplicity="1" />
-          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+        <Association Name="FK__Employee__RoleID__403A8C7D">
+          <End Type="OdbRepairEngineModel.Role" Role="Role" Multiplicity="1" />
+          <End Type="OdbRepairEngineModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Employee__UserID__3F466844">
+          <End Type="OdbRepairEngineModel.User" Role="User" Multiplicity="0..1" />
+          <End Type="OdbRepairEngineModel.Employee" Role="Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Request__MasterI__52593CB8">
+          <End Type="OdbRepairEngineModel.Employee" Role="Employee" Multiplicity="0..1" />
+          <End Type="OdbRepairEngineModel.Request" Role="Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="MasterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Request__HomeTec__4D94879B">
+          <End Type="OdbRepairEngineModel.HomeTech" Role="HomeTech" Multiplicity="1" />
+          <End Type="OdbRepairEngineModel.Request" Role="Request" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="HomeTech">
               <PropertyRef Name="HomeTechID" />
@@ -613,9 +867,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ModelTech__TechF__403A8C7D">
-          <End Role="TechFactory" Type="Self.TechFactory" Multiplicity="1" />
-          <End Role="ModelTechFactory" Type="Self.ModelTechFactory" Multiplicity="*" />
+        <Association Name="FK__ModelTech__TechF__46E78A0C">
+          <End Type="OdbRepairEngineModel.TechFactory" Role="TechFactory" Multiplicity="1" />
+          <End Type="OdbRepairEngineModel.ModelTechFactory" Role="ModelTechFactory" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TechFactory">
               <PropertyRef Name="TechFactoryID" />
@@ -625,9 +879,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Request__ModelTe__6A30C649">
-          <End Role="ModelTechFactory" Type="Self.ModelTechFactory" Multiplicity="1" />
-          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+        <Association Name="FK__Request__ModelTe__4F7CD00D">
+          <End Type="OdbRepairEngineModel.ModelTechFactory" Role="ModelTechFactory" Multiplicity="1" />
+          <End Type="OdbRepairEngineModel.Request" Role="Request" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ModelTechFactory">
               <PropertyRef Name="ModelTechFactoryID" />
@@ -637,9 +891,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__NewMessag__Reque__74AE54BC">
-          <End Role="Request" Type="Self.Request" Multiplicity="1" />
-          <End Role="NewMessage" Type="Self.NewMessage" Multiplicity="*" />
+        <Association Name="FK__NewMessag__Reque__5FB337D6">
+          <End Type="OdbRepairEngineModel.Request" Role="Request" Multiplicity="1" />
+          <End Type="OdbRepairEngineModel.NewMessage" Role="NewMessage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Request">
               <PropertyRef Name="RequestID" />
@@ -649,9 +903,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__NewMessag__Reque__75A278F5">
-          <End Role="RequestStatus" Type="Self.RequestStatus" Multiplicity="1" />
-          <End Role="NewMessage" Type="Self.NewMessage" Multiplicity="*" />
+        <Association Name="FK__NewMessag__Reque__60A75C0F">
+          <End Type="OdbRepairEngineModel.RequestStatus" Role="RequestStatus" Multiplicity="1" />
+          <End Type="OdbRepairEngineModel.NewMessage" Role="NewMessage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="RequestStatus">
               <PropertyRef Name="RequestStatusID" />
@@ -661,9 +915,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__NewMessag__UserI__76969D2E">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="NewMessage" Type="Self.NewMessage" Multiplicity="*" />
+        <Association Name="FK__NewMessag__UserI__619B8048">
+          <End Type="OdbRepairEngineModel.User" Role="User" Multiplicity="1" />
+          <End Type="OdbRepairEngineModel.NewMessage" Role="NewMessage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserID" />
@@ -673,33 +927,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Request__ClientI__6E01572D">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Request" Type="Self.Request" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="Request">
-              <PropertyRef Name="ClientID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Request__MasterI__6D0D32F4">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Request" Type="Self.Request" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="Request">
-              <PropertyRef Name="MasterID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Request__Request__6C190EBB">
-          <End Role="RequestStatus" Type="Self.RequestStatus" Multiplicity="1" />
-          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+        <Association Name="FK__Request__Request__5165187F">
+          <End Type="OdbRepairEngineModel.RequestStatus" Role="RequestStatus" Multiplicity="1" />
+          <End Type="OdbRepairEngineModel.Request" Role="Request" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="RequestStatus">
               <PropertyRef Name="RequestStatusID" />
@@ -709,9 +939,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Request__TechCol__6B24EA82">
-          <End Role="TechColor" Type="Self.TechColor" Multiplicity="1" />
-          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+        <Association Name="FK__Request__TechCol__5070F446">
+          <End Type="OdbRepairEngineModel.TechColor" Role="TechColor" Multiplicity="1" />
+          <End Type="OdbRepairEngineModel.Request" Role="Request" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TechColor">
               <PropertyRef Name="TechColorID" />
@@ -721,110 +951,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Request__TechFac__693CA210">
-          <End Role="TechFactory" Type="Self.TechFactory" Multiplicity="1" />
-          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+        <Association Name="FK__Request__TechFac__4E88ABD4">
+          <End Type="OdbRepairEngineModel.TechFactory" Role="TechFactory" Multiplicity="1" />
+          <End Type="OdbRepairEngineModel.Request" Role="Request" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TechFactory">
               <PropertyRef Name="TechFactoryID" />
             </Principal>
             <Dependent Role="Request">
-              <PropertyRef Name="TechFactory" />
+              <PropertyRef Name="TechFactoryID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__User__RoleID__398D8EEE">
-          <End Role="Role" Type="Self.Role" Multiplicity="1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Role">
-              <PropertyRef Name="RoleID" />
-            </Principal>
-            <Dependent Role="User">
-              <PropertyRef Name="RoleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="OdbRepairEngineEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ActionLog" EntityType="Self.ActionLog" />
-          <EntitySet Name="ActionStatus" EntityType="Self.ActionStatus" />
-          <EntitySet Name="Comment" EntityType="Self.Comment" />
-          <EntitySet Name="HomeTech" EntityType="Self.HomeTech" />
-          <EntitySet Name="ModelTechFactory" EntityType="Self.ModelTechFactory" />
-          <EntitySet Name="NewMessage" EntityType="Self.NewMessage" />
-          <EntitySet Name="Request" EntityType="Self.Request" />
-          <EntitySet Name="RequestStatus" EntityType="Self.RequestStatus" />
-          <EntitySet Name="Role" EntityType="Self.Role" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="TechColor" EntityType="Self.TechColor" />
-          <EntitySet Name="TechFactory" EntityType="Self.TechFactory" />
-          <EntitySet Name="User" EntityType="Self.User" />
-          <AssociationSet Name="FK__ActionLog__Actio__60A75C0F" Association="Self.FK__ActionLog__Actio__60A75C0F">
-            <End Role="ActionStatus" EntitySet="ActionStatus" />
-            <End Role="ActionLog" EntitySet="ActionLog" />
-          </AssociationSet>
-          <AssociationSet Name="FK__ActionLog__UserI__5FB337D6" Association="Self.FK__ActionLog__UserI__5FB337D6">
-            <End Role="User" EntitySet="User" />
-            <End Role="ActionLog" EntitySet="ActionLog" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Comment__MasterI__70DDC3D8" Association="Self.FK__Comment__MasterI__70DDC3D8">
-            <End Role="User" EntitySet="User" />
-            <End Role="Comment" EntitySet="Comment" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Comment__Request__71D1E811" Association="Self.FK__Comment__Request__71D1E811">
-            <End Role="Request" EntitySet="Request" />
-            <End Role="Comment" EntitySet="Comment" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Request__HomeTec__68487DD7" Association="Self.FK__Request__HomeTec__68487DD7">
-            <End Role="HomeTech" EntitySet="HomeTech" />
-            <End Role="Request" EntitySet="Request" />
-          </AssociationSet>
-          <AssociationSet Name="FK__ModelTech__TechF__403A8C7D" Association="Self.FK__ModelTech__TechF__403A8C7D">
-            <End Role="TechFactory" EntitySet="TechFactory" />
-            <End Role="ModelTechFactory" EntitySet="ModelTechFactory" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Request__ModelTe__6A30C649" Association="Self.FK__Request__ModelTe__6A30C649">
-            <End Role="ModelTechFactory" EntitySet="ModelTechFactory" />
-            <End Role="Request" EntitySet="Request" />
-          </AssociationSet>
-          <AssociationSet Name="FK__NewMessag__Reque__74AE54BC" Association="Self.FK__NewMessag__Reque__74AE54BC">
-            <End Role="Request" EntitySet="Request" />
-            <End Role="NewMessage" EntitySet="NewMessage" />
-          </AssociationSet>
-          <AssociationSet Name="FK__NewMessag__Reque__75A278F5" Association="Self.FK__NewMessag__Reque__75A278F5">
-            <End Role="RequestStatus" EntitySet="RequestStatus" />
-            <End Role="NewMessage" EntitySet="NewMessage" />
-          </AssociationSet>
-          <AssociationSet Name="FK__NewMessag__UserI__76969D2E" Association="Self.FK__NewMessag__UserI__76969D2E">
-            <End Role="User" EntitySet="User" />
-            <End Role="NewMessage" EntitySet="NewMessage" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Request__ClientI__6E01572D" Association="Self.FK__Request__ClientI__6E01572D">
-            <End Role="User" EntitySet="User" />
-            <End Role="Request" EntitySet="Request" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Request__MasterI__6D0D32F4" Association="Self.FK__Request__MasterI__6D0D32F4">
-            <End Role="User" EntitySet="User" />
-            <End Role="Request" EntitySet="Request" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Request__Request__6C190EBB" Association="Self.FK__Request__Request__6C190EBB">
-            <End Role="RequestStatus" EntitySet="RequestStatus" />
-            <End Role="Request" EntitySet="Request" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Request__TechCol__6B24EA82" Association="Self.FK__Request__TechCol__6B24EA82">
-            <End Role="TechColor" EntitySet="TechColor" />
-            <End Role="Request" EntitySet="Request" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Request__TechFac__693CA210" Association="Self.FK__Request__TechFac__693CA210">
-            <End Role="TechFactory" EntitySet="TechFactory" />
-            <End Role="Request" EntitySet="Request" />
-          </AssociationSet>
-          <AssociationSet Name="FK__User__RoleID__398D8EEE" Association="Self.FK__User__RoleID__398D8EEE">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -833,133 +972,152 @@
           <EntitySetMapping Name="ActionLog">
             <EntityTypeMapping TypeName="OdbRepairEngineModel.ActionLog">
               <MappingFragment StoreEntitySet="ActionLog">
-                <ScalarProperty Name="ActionLogID" ColumnName="ActionLogID" />
-                <ScalarProperty Name="DateAndTime" ColumnName="DateAndTime" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="ActionStatusID" ColumnName="ActionStatusID" />
                 <ScalarProperty Name="Descryption" ColumnName="Descryption" />
+                <ScalarProperty Name="ActionStatusID" ColumnName="ActionStatusID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="DateAndTime" ColumnName="DateAndTime" />
+                <ScalarProperty Name="ActionLogID" ColumnName="ActionLogID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ActionStatus">
             <EntityTypeMapping TypeName="OdbRepairEngineModel.ActionStatus">
               <MappingFragment StoreEntitySet="ActionStatus">
-                <ScalarProperty Name="ActionStatusID" ColumnName="ActionStatusID" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ActionStatusID" ColumnName="ActionStatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="OdbRepairEngineModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Comment">
             <EntityTypeMapping TypeName="OdbRepairEngineModel.Comment">
               <MappingFragment StoreEntitySet="Comment">
-                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
-                <ScalarProperty Name="Message" ColumnName="Message" />
-                <ScalarProperty Name="MasterID" ColumnName="MasterID" />
                 <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+                <ScalarProperty Name="MasterID" ColumnName="MasterID" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="CommentID" ColumnName="CommentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employee">
+            <EntityTypeMapping TypeName="OdbRepairEngineModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HomeTech">
             <EntityTypeMapping TypeName="OdbRepairEngineModel.HomeTech">
               <MappingFragment StoreEntitySet="HomeTech">
-                <ScalarProperty Name="HomeTechID" ColumnName="HomeTechID" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="HomeTechID" ColumnName="HomeTechID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ModelTechFactory">
             <EntityTypeMapping TypeName="OdbRepairEngineModel.ModelTechFactory">
               <MappingFragment StoreEntitySet="ModelTechFactory">
-                <ScalarProperty Name="ModelTechFactoryID" ColumnName="ModelTechFactoryID" />
-                <ScalarProperty Name="TechFactoryID" ColumnName="TechFactoryID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="TechFactoryID" ColumnName="TechFactoryID" />
+                <ScalarProperty Name="ModelTechFactoryID" ColumnName="ModelTechFactoryID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="NewMessage">
             <EntityTypeMapping TypeName="OdbRepairEngineModel.NewMessage">
               <MappingFragment StoreEntitySet="NewMessage">
-                <ScalarProperty Name="NewMessageID" ColumnName="NewMessageID" />
-                <ScalarProperty Name="DateAndTime" ColumnName="DateAndTime" />
-                <ScalarProperty Name="RequestID" ColumnName="RequestID" />
-                <ScalarProperty Name="Descryption" ColumnName="Descryption" />
-                <ScalarProperty Name="RequestStatusID" ColumnName="RequestStatusID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="RequestStatusID" ColumnName="RequestStatusID" />
+                <ScalarProperty Name="Descryption" ColumnName="Descryption" />
+                <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+                <ScalarProperty Name="DateAndTime" ColumnName="DateAndTime" />
+                <ScalarProperty Name="NewMessageID" ColumnName="NewMessageID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Request">
             <EntityTypeMapping TypeName="OdbRepairEngineModel.Request">
               <MappingFragment StoreEntitySet="Request">
-                <ScalarProperty Name="RequestID" ColumnName="RequestID" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="HomeTechID" ColumnName="HomeTechID" />
-                <ScalarProperty Name="TechFactory" ColumnName="TechFactory" />
-                <ScalarProperty Name="ModelTechFactoryID" ColumnName="ModelTechFactoryID" />
-                <ScalarProperty Name="TechColorID" ColumnName="TechColorID" />
-                <ScalarProperty Name="ProblemeDescryption" ColumnName="ProblemeDescryption" />
-                <ScalarProperty Name="RequestStatusID" ColumnName="RequestStatusID" />
-                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
-                <ScalarProperty Name="RepairParts" ColumnName="RepairParts" />
-                <ScalarProperty Name="MasterID" ColumnName="MasterID" />
                 <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="MasterID" ColumnName="MasterID" />
+                <ScalarProperty Name="RepairParts" ColumnName="RepairParts" />
+                <ScalarProperty Name="CompletionDate" ColumnName="CompletionDate" />
+                <ScalarProperty Name="RequestStatusID" ColumnName="RequestStatusID" />
+                <ScalarProperty Name="ProblemeDescryption" ColumnName="ProblemeDescryption" />
+                <ScalarProperty Name="TechColorID" ColumnName="TechColorID" />
+                <ScalarProperty Name="ModelTechFactoryID" ColumnName="ModelTechFactoryID" />
+                <ScalarProperty Name="TechFactoryID" ColumnName="TechFactoryID" />
+                <ScalarProperty Name="HomeTechID" ColumnName="HomeTechID" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="RequestID" ColumnName="RequestID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RequestStatus">
             <EntityTypeMapping TypeName="OdbRepairEngineModel.RequestStatus">
               <MappingFragment StoreEntitySet="RequestStatus">
-                <ScalarProperty Name="RequestStatusID" ColumnName="RequestStatusID" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="RequestStatusID" ColumnName="RequestStatusID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Role">
             <EntityTypeMapping TypeName="OdbRepairEngineModel.Role">
               <MappingFragment StoreEntitySet="Role">
-                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="OdbRepairEngineModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TechColor">
             <EntityTypeMapping TypeName="OdbRepairEngineModel.TechColor">
               <MappingFragment StoreEntitySet="TechColor">
-                <ScalarProperty Name="TechColorID" ColumnName="TechColorID" />
                 <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="TechColorID" ColumnName="TechColorID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TechFactory">
             <EntityTypeMapping TypeName="OdbRepairEngineModel.TechFactory">
               <MappingFragment StoreEntitySet="TechFactory">
-                <ScalarProperty Name="TechFactoryID" ColumnName="TechFactoryID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="TechFactoryID" ColumnName="TechFactoryID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="OdbRepairEngineModel.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Login" ColumnName="Login" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

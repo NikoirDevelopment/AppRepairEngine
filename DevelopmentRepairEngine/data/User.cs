@@ -18,10 +18,10 @@ namespace DevelopmentRepairEngine.data
         public User()
         {
             this.ActionLog = new HashSet<ActionLog>();
+            this.Client = new HashSet<Client>();
             this.Comment = new HashSet<Comment>();
+            this.Employee = new HashSet<Employee>();
             this.NewMessage = new HashSet<NewMessage>();
-            this.Request = new HashSet<Request>();
-            this.Request1 = new HashSet<Request>();
         }
     
         public int UserID { get; set; }
@@ -29,20 +29,16 @@ namespace DevelopmentRepairEngine.data
         public string Name { get; set; }
         public string MiddleName { get; set; }
         public double Phone { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
-        public int RoleID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ActionLog> ActionLog { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Client> Client { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee> Employee { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NewMessage> NewMessage { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Request> Request { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Request> Request1 { get; set; }
-        public virtual Role Role { get; set; }
     }
 }

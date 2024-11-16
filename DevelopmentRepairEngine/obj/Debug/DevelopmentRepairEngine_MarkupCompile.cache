@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\hlebu\YandexDisk\Буянов Никита Родионович\Учеба\ЗабГК\Учебная практика\11.11.2024 - 20.12.2024\Pr1\AppRepairEngine\DevelopmentRepairEngine\App.xaml
-51808036615
+11-1725501475
 2-563249835
-28700666407
+38171349178
 18-228015031
-MainWindow.xaml;systemwindowpages\MainWindowApp\windowMainWindowApp.xaml;systemwindowpages\PagesAuthorization.xaml;systemwindowpages\PagesLosePassword.xaml;systemwindowpages\PagesRegistration.xaml;
+MainWindow.xaml;systemwindowpages\MainWindowApp\pages\orderS\PagesCheckOrder.xaml;systemwindowpages\MainWindowApp\pages\orderS\PagesCreateOrder.xaml;systemwindowpages\MainWindowApp\pages\orderS\WindowEditOreder.xaml;systemwindowpages\MainWindowApp\pages\PagesMessage.xaml;systemwindowpages\MainWindowApp\pages\PagesStatistick.xaml;systemwindowpages\MainWindowApp\pages\userS\PagesUsers.xaml;systemwindowpages\MainWindowApp\windowMainWindowApp.xaml;systemwindowpages\PagesAuthorization.xaml;systemwindowpages\PagesLosePassword.xaml;systemwindowpages\PagesRegistration.xaml;
 
 False
 

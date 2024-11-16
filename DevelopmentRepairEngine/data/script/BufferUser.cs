@@ -13,6 +13,8 @@ namespace DevelopmentRepairEngine.data.script
     {
         public static int userid {  get; set; }
 
+        public static int clientid { get; set; }
+
         public static string login { get; set; }
 
         public static string name { get; set; }
